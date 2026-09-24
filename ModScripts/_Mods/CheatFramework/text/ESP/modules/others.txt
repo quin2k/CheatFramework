@@ -135,3 +135,9 @@ Violación de compañeros
 
 command_help/companionrape1
 Permite que los compañeros elijan a Lona como objetivo según sus preferencias.
+
+commands/preventsexdeath
+Prevenir Muerte por Sexo
+
+command_help/preventsexdeath1
+Los ataques sexuales de Lona no pueden matar a su objetivo.

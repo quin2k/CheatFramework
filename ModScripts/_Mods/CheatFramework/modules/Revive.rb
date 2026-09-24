@@ -42,7 +42,7 @@ module MenuFramework
       "UniqueCharUniqueCaptainEdward",
       "UniqueCharUniqueFatdalf",
       "UniqueCharNoerSnowflake",
-
+      #Unique characters that are currently excluded:
       #"UniqueChar_NorthFL_SGT",
       #"UniqueChar_NFL_MerCamp_Leader",
       #"UniqueCharNoerRelayOut_PoorBoy",

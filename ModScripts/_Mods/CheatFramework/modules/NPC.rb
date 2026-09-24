@@ -156,7 +156,7 @@ end
 # Endless Contracts
 #--------------------------------------------------------------------------
 if $cheat_infinite_companion >= 0
-  # Expiry checks only act when these dates aren't nil, so nil stops auto-leaving.
+  # Nil dates disable the companion expiry checks, so companions never leave.
   class Game_Player
     alias_method :cf_infinite_companion_record_companion_front_date, :record_companion_front_date
     alias_method :cf_infinite_companion_record_companion_back_date,  :record_companion_back_date
@@ -293,11 +293,33 @@ if $cheat_irresistible_companions >= 0
 end
 
 #--------------------------------------------------------------------------
+# Prevent Sex Death
+#--------------------------------------------------------------------------
+if $cheat_prevent_sex_death >= 0
+  PREVENT_SEX_DEATH_SKILLS = /\ABasic(Whore)?SexService_|\ABasicSexBloodlust\z/
+
+  class Game_NonPlayerCharacter
+    # Undoes only the hit that would have killed the target; the scene still ends by orgasm.
+    alias_method :cf_prevent_sex_death_take_skill_effect, :take_skill_effect
+    def take_skill_effect(user, skill, can_sap = false, force_hit = false)
+      guarded = $cheat_prevent_sex_death == 1 && user == $game_player.actor &&
+                skill.name =~ PREVENT_SEX_DEATH_SKILLS && !npc_dead?
+      return cf_prevent_sex_death_take_skill_effect(user, skill, can_sap, force_hit) unless guarded
+      health = @stat.get_stat("health")
+      sta    = @stat.get_stat("sta")
+      cf_prevent_sex_death_take_skill_effect(user, skill, can_sap, force_hit)
+      return unless npc_dead?
+      @stat.set_stat("health", health)
+      @stat.set_stat("sta", sta)
+    end
+  end
+end
+
+#--------------------------------------------------------------------------
 # Beast Fix
 #--------------------------------------------------------------------------
 if $cheat_beast_fix >= 0
-  # WildBoar/WildDog/WildHorse ship reachable; CompDoggy/CompHorseCarry ship hard-disabled
-  # (sex==65535, never true) - companions get a higher weak threshold than wild animals.
+  # Weak threshold each beast needs before it will fuck Lona; companions get higher ones.
   BEAST_FIX_WEAK_THRESHOLD = {
     "WildBoar"       => 40,
     "WildDog"        => 40,
@@ -378,8 +400,7 @@ if $cheat_companion_rape >= 0
   CF_SENSOR_IFF_BYPASS_NAMES = []
 
   class Game_NonPlayerCharacter
-    # Escape hatch for granting the bypass to something that isn't a recruited companion
-    # (@master == $game_player) yet, e.g. an NPC still under test.
+    # Hook for granting the bypass to non-companion NPCs.
     def cf_companion_rape_ignore_iff?
       @master == $game_player || CF_SENSOR_IFF_BYPASS_NAMES.include?(@npc_name)
     end

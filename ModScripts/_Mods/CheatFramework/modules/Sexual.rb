@@ -17,6 +17,7 @@ module MenuFramework
       menu1:  "menu:window_help/character1",
       name:   "CheatMenuSexual",
       dict:   :SEXUAL,
+      order:  80
     )
     #--------------------------------------------------------------------------
     # Damage
@@ -30,7 +31,8 @@ module MenuFramework
       enable: -> { $game_player.actor.actStat.get_stat('vag_damage', 3) != 0 },
       min:    0,
       max:    5000,
-      action: ->(v) { $game_player.actor.vag_damage = v }
+      action: ->(v) { $game_player.actor.vag_damage = v },
+      order:  10
     )
     register_command(
       group:  :SEXUAL,
@@ -41,7 +43,8 @@ module MenuFramework
       enable: -> { $game_player.actor.actStat.get_stat('urinary_damage', 3) != 0 },
       min:    0,
       max:    5000,
-      action: ->(v) { $game_player.actor.urinary_damage = v }
+      action: ->(v) { $game_player.actor.urinary_damage = v },
+      order:  20
     )
     register_command(
       group:  :SEXUAL,
@@ -52,7 +55,8 @@ module MenuFramework
       enable: -> { $game_player.actor.actStat.get_stat('anal_damage', 3) != 0 },
       min:    0,
       max:    5000,
-      action: ->(v) { $game_player.actor.anal_damage = v }
+      action: ->(v) { $game_player.actor.anal_damage = v },
+      order:  30
     )
     #--------------------------------------------------------------------------
     # Damage Toggles
@@ -72,7 +76,9 @@ module MenuFramework
                     $game_player.actor.actStat.set_stat('vag_damage', 0, 3)
                   end
                   $game_player.actor.refresh
-    })
+      },
+      order:  40
+    )
     register_command(
       group:  :SEXUAL,
       type:   :toggle,
@@ -88,7 +94,9 @@ module MenuFramework
                     $game_player.actor.actStat.set_stat('urinary_damage', 0, 3)
                   end
                   $game_player.actor.refresh
-    })
+      },
+      order:  50
+    )
     register_command(
       group:  :SEXUAL,
       type:   :toggle,
@@ -104,21 +112,80 @@ module MenuFramework
                     $game_player.actor.actStat.set_stat('anal_damage', 0, 3)
                   end
                   $game_player.actor.refresh
-    })
-
+      },
+      order:  60
+    )
+    register_command(
+      group:  :SEXUAL,
+      type:   :edit_num,
+      key:    "Sex Attack Bonus",
+      label:  "modules/character:commands/sexual/atk_bonus",
+      state:  "FrameworkUtils.stat_bonus(:sex)",
+      help1:  "modules/character:command_help/sexual/atk_bonus",
+      min:    -100,
+      max:    200,
+      action: ->(v) { $story_stats["CF_bonus_sex"] = v },
+      order:  70
+    )
+    register_command(
+      group:  :SEXUAL,
+      type:   :edit_list,
+      key:    "Prevent Sex Death",
+      label:  "modules/others:commands/preventsexdeath",
+      help1:  "modules/others:command_help/preventsexdeath1",
+      help2:  "menu:command_help/fixcommand2",
+      state:  "$cheat_prevent_sex_death",
+      list:   FIX_TOGGLE_LIST,
+      gdef:   0,
+      restart: -1,
+      order:  80
+    )
     register_command(
       group:  :SEXUAL,
       type:   :action,
       key:    "Reset Sex Record",
       label:  "modules/character:commands/sexual/reset",
       help1:  "modules/character:command_help/sexual/reset",
-      action: -> { FrameworkUtils.clear_sex_record }
+      action: -> { FrameworkUtils.clear_sex_record },
+      order:  90
     )
 
   end
 end
 
 
+
+module FrameworkUtils
+  SEX_ATK_STATS = ["sex_vag_atk", "sex_anal_atk", "sex_mouth_atk", "sex_limbs_atk"]
+
+  def self.sex_atk_with_bonus(actor, value)
+    return value unless player_actor?(actor)
+    [value + stat_bonus(:sex), 0].max
+  end
+end
+
+# Read-time bonus: bypasses the calculated value's caps, orifice damage and stamina scaling.
+class Game_Actor
+  alias_method :cf_sex_bonus_sex_vag_atk, :sex_vag_atk
+  def sex_vag_atk; FrameworkUtils.sex_atk_with_bonus(self, cf_sex_bonus_sex_vag_atk) end
+
+  alias_method :cf_sex_bonus_sex_anal_atk, :sex_anal_atk
+  def sex_anal_atk; FrameworkUtils.sex_atk_with_bonus(self, cf_sex_bonus_sex_anal_atk) end
+
+  alias_method :cf_sex_bonus_sex_mouth_atk, :sex_mouth_atk
+  def sex_mouth_atk; FrameworkUtils.sex_atk_with_bonus(self, cf_sex_bonus_sex_mouth_atk) end
+
+  alias_method :cf_sex_bonus_sex_limbs_atk, :sex_limbs_atk
+  def sex_limbs_atk; FrameworkUtils.sex_atk_with_bonus(self, cf_sex_bonus_sex_limbs_atk) end
+
+  # Skill effects read attributes here instead of through the getters.
+  alias_method :cf_sex_bonus_export_affected_attr, :export_affected_attr
+  def export_affected_attr(effect)
+    value = cf_sex_bonus_export_affected_attr(effect)
+    return value unless effect.attr_type == "current" && FrameworkUtils::SEX_ATK_STATS.include?(effect.attr)
+    FrameworkUtils.sex_atk_with_bonus(self, value)
+  end
+end
 
 module FrameworkUtils
   def self.clear_sex_record

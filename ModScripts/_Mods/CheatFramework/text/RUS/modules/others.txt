@@ -135,3 +135,9 @@ commands/companionrape
 
 command_help/companionrape1
 Позволяет спутникам преследовать Лону в соответствии с их предпочтениями.
+
+commands/preventsexdeath
+Предотвратить смерть от секса
+
+command_help/preventsexdeath1
+Сексуальные атаки Лоны не могут убить цель.

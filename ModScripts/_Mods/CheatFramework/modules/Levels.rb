@@ -312,8 +312,7 @@ end
 #--------------------------------------------------------------------------
 # Exp Rate
 #--------------------------------------------------------------------------
-# gain_exp always multiplies by this before truncating to an int - RolePlay-S's
-# own gain_exp override still calls through to this same original method.
+# Multiplies gained exp by the Exp Rate before truncating to an int.
 if $cheat_exp_rate != 0
   class Game_Actor
     alias_method :cf_exp_rate_final_exp_rate, :final_exp_rate

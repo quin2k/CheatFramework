@@ -72,3 +72,12 @@ command_help/clear1
 
 command_help/clear2
 如果禁用此功能，则“保护怀孕”功能将开启。
+
+commands/suppress_menses
+抑制月經
+
+command_help/suppress_menses1
+隱藏月經與排卵的彈出視窗與效果。
+
+command_help/suppress_menses2
+週期本身不變；不影響生育能力。

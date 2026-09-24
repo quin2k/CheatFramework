@@ -135,3 +135,9 @@ commands/companionrape
 
 command_help/companionrape1
 允许同伴根据自己的偏好以洛娜为目标。
+
+commands/preventsexdeath
+防止性愛死亡
+
+command_help/preventsexdeath1
+洛娜的性愛攻擊無法殺死目標。

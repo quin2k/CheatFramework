@@ -82,7 +82,8 @@ module MenuFramework
                 { key: 0, label: "[#{$framework.txt("menu:cheat_toggle/off")}]" },
                 { key: 1, label: "[#{$framework.txt("menu:cheat_toggle/on")}]" }
               ],
-      action: ->(v) { FrameworkUtils.custom_state_edit("Freckle", v) }
+      action: ->(v) { FrameworkUtils.custom_state_edit("Freckle", v) },
+      order:  40
       )
     register_command(
       group:  :APPEARANCE,
@@ -93,7 +94,8 @@ module MenuFramework
       help1:  "modules/character:command_help/pubes1",
       min:    0,
       max:    4,
-      action: ->(v) { FrameworkUtils.custom_state_edit("PubicHairVag", v) }
+      action: ->(v) { FrameworkUtils.custom_state_edit("PubicHairVag", v) },
+      order:  50
       )
     register_command(
       group:  :APPEARANCE,
@@ -104,7 +106,8 @@ module MenuFramework
       help1:  "modules/character:command_help/pubes1",
       min:    0,
       max:    4,
-      action: ->(v) { FrameworkUtils.custom_state_edit("PubicHairAnal", v) }
+      action: ->(v) { FrameworkUtils.custom_state_edit("PubicHairAnal", v) },
+      order:  60
       )
     register_command(
       group:  :APPEARANCE,
@@ -117,7 +120,8 @@ module MenuFramework
       help2:  "modules/character:command_help/pubegrowth2",
       min:    1,
       max:    365,
-      action: ->(v) { $game_player.actor.pubicHair_Vag_GrowRate = v }
+      action: ->(v) { $game_player.actor.pubicHair_Vag_GrowRate = v },
+      order:  70
       )
     register_command(
       group:  :APPEARANCE,
@@ -130,7 +134,8 @@ module MenuFramework
       help2:  "modules/character:command_help/pubegrowth2",
       min:    1,
       max:    365,
-      action: ->(v) { $game_player.actor.pubicHair_Anal_GrowRate = v }
+      action: ->(v) { $game_player.actor.pubicHair_Anal_GrowRate = v },
+      order:  80
       )
 
     #--------------------------------------------------------------------------

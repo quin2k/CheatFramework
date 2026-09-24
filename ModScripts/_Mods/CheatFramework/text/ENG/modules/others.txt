@@ -124,6 +124,12 @@ Irresistible
 command_help/irresistible1
 Prioritize sexual targeting if stamina <0.
 
+commands/preventsexdeath
+Prevent Sex Death
+
+command_help/preventsexdeath1
+Lona's sex attacks cannot kill their target.
+
 commands/beastfix
 Beast Fix
 

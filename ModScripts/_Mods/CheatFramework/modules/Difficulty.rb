@@ -97,8 +97,7 @@ module MenuFramework
                 { key:  5,  label: "[x8]" },
                 { key: -1,  label: "[#{$framework.txt("menu:cheat_toggle/infinite")}]" },
               ],
-      # 0 doubles as both "Off" and "not installed" (the patch's own gate is `!= 0`) - defaulting
-      # here instead of x1 means a fresh install doesn't pay for the patch until actually used.
+      # Defaults to 0 (Off), so the patch isn't installed until it's used.
       gdef:   1,
       restart: 0,
       order:  20

@@ -134,7 +134,6 @@ module Action_Window_Defaults
       enable = record[:enable].is_a?(Proc) ? record[:enable].call : record[:enable]
 
       add_command(
-        #$framework.txt(record[:label]), added alternative proc handling for testing:
         record[:label].is_a?(Proc) ? record[:label].call : $framework.txt(record[:label]),
         :run_default_command,
         enable,
@@ -251,7 +250,7 @@ module Action_Window_Defaults
                       "[#{$framework.txt("menu:cheat_toggle/off")}]"
     when :edit_num
       value = record[:state].call rescue 0
-      right = value.to_s
+      right = record[:display] ? (record[:display].call(value) rescue value.to_s) : value.to_s
     when :edit_list
       list = record[:list] || []
       value = record[:state].call rescue 0
@@ -263,7 +262,7 @@ module Action_Window_Defaults
 
     # --- Adjust display name and color ---
     hotkey_tag = FrameworkUtils.hotkey_tag_for(@dictionary, key)
-    # edit_list/edit_num rows cannot be assigned a hotkey, so no conflict with restart tag.
+    # edit_list/edit_num rows can't hold a hotkey, so they can show the restart tag.
     restart_tag = hotkey_tag ? nil : (FrameworkUtils.restart_mismatch?(record) ? "[#{$framework.txt("menu:commands_status/restart_needed")}]" : nil)
     tag = hotkey_tag || restart_tag
     tagged_name = tag ? "#{name} #{tag}" : name
@@ -272,7 +271,7 @@ module Action_Window_Defaults
 
     if @editing && key == @editing_this
       color = text_color(16)
-      right = @edit_value.to_s
+      right = record && record[:display] && @editing_number ? (record[:display].call(@edit_value) rescue @edit_value.to_s) : @edit_value.to_s
     end
 
     if @hotkey_capture_mode && index == self.index
@@ -340,9 +339,8 @@ module Action_Window_Defaults
   #--------------------------------------------------------------------------
   # Hotkey Capture
   #--------------------------------------------------------------------------
-  # LETTER_C arms the row, Shift/Ctrl/Alt+key assigns (F-key or letter/digit/
-  # punctuation, see HotkeySymbols), Delete/Backspace clears, LETTER_C/Cancel
-  # disarms. Any command can hold a hotkey via hotkey_defs.
+  # LETTER_C arms the row, Shift/Ctrl/Alt+key assigns (see HotkeySymbols), Delete/Backspace clears,
+  # LETTER_C/Cancel disarms. Any command can hold a hotkey via hotkey_defs.
   FKEY_SYMBOLS = (1..12).map { |n| :"F#{n}" }
 
   # :edit_num/:edit_list actions need a value argument, which a bare keypress can't supply.
@@ -383,8 +381,7 @@ module Action_Window_Defaults
     refresh
   end
 
-  # Backs out without assigning anything - the only time "C to cancel" is
-  # accurate, since assign/clear below leave on their own once committed.
+  # Backs out of hotkey capture without assigning anything.
   def exit_hotkey_capture
     SndLib.play_cursor
     leave_hotkey_capture
@@ -636,9 +633,8 @@ module Scene_Defaults
             when :edit_num, :edit_list then help3 = $framework.txt("menu:command_help/edit")
             else help3 = ""
             end
-            # Only :action/:toggle/:scene rows can carry a hotkey (see
-            # Action_Window_Defaults::CAPTURABLE_TYPES) - :edit_num/:edit_list
-            # get no hint since pressing C there just buzzes.
+            # Only :action/:toggle/:scene rows can carry a hotkey (Action_Window_Defaults::CAPTURABLE_TYPES);
+            # :edit_num/:edit_list get no hint since pressing C there just buzzes.
             help4 = [:action, :scene, :toggle].include?(type) ? $framework.txt("menu:command_help/set_hotkey_hint") : ""
           end
         end
@@ -699,6 +695,8 @@ module Scene_Defaults
   def hud
     self
   end
+
+  def perform_damage_effect; end
 
 end
 

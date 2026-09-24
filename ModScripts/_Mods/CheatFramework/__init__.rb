@@ -39,7 +39,7 @@ class CheatFramework
         unless SceneManager.scene_is?(Scene_CheatMainMenu)
         SceneManager.call(Scene_CheatMainMenu) if FrameworkUtils.ingame? end 
       }}}
-    # Main Menu Toggle's key lives in Input::SYM_KEYS[:CF_CHEAT_MENU] now.
+    # The Main Menu Toggle key is stored in Input::SYM_KEYS[:CF_CHEAT_MENU].
     @hotkey_defs = {}
     @hotkeys = Hash.new { |h, k| h[k] = [] }
     @init_config_dir = nil
@@ -47,7 +47,7 @@ class CheatFramework
     @menu_order_snapshot = nil
     @menu_order_dirty = false
     @hotkey_capture_active = false
-    # Process-wide only, not save-scoped - resets on a real restart.
+    # Set when a change needs a restart; kept for the session only.
     @restart_needed = false
     # "GROUP.CommandKey" => true/false (override active), for global:-flagged commands.
     @force_modes = {}
@@ -127,7 +127,7 @@ if $framework.nil?
 
   # Discover and load modules & hotkeys
   $framework.init_modules
-  # Pristine, pre-ini state - lets Reset All Settings restore hotkeys live.
+  # Copy of the hotkeys before ini overrides, used by Reset All Settings.
   $framework.hotkey_defaults = $framework.hotkey_defs.each_with_object({}) { |(k, v), h| h[k] = v.dup }
   $framework.ini.init_hotkeys
   $framework.ini.init_menu_toggle_key

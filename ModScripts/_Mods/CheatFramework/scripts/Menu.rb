@@ -32,8 +32,7 @@ module FrameworkUtils
     end
   end
 
-  # Reads the Main Menu Toggle key from Input::SYM_KEYS[:CF_CHEAT_MENU] (see
-  # hook_vanilla_keybind_menu), not a :MENU-group entry in $framework.hotkeys.
+  # Reads the Main Menu Toggle key from Input::SYM_KEYS[:CF_CHEAT_MENU].
   def self.process_menu_toggle_hotkey
     return if $framework.hotkey_capture_active
     return unless Input.trigger?(:CF_CHEAT_MENU)
@@ -271,7 +270,6 @@ module MenuFramework
       end
 
       if opts[:source]=="Edit Lona" && opts[:group]==:MISC
-        #msgbox "#{opts.inspect}"
       end
 
       # Snapshot at boot for restart_mismatch? to compare against: whether the
@@ -299,6 +297,7 @@ module MenuFramework
         list:   opts[:list],
         min:    opts[:min],
         max:    opts[:max],
+        display: opts[:display],
         order:  opts[:order] || 999,
         default_order: opts[:order] || 999,
         enable: opts.has_key?(:enable) ? opts[:enable] : true,
@@ -450,8 +449,7 @@ class Menu_System
     if Mouse.usable?
       text_width  = spr.bitmap.text_size(CHEAT_MENU_BUTTON_TEXT).width
       text_height = spr.bitmap.text_size(CHEAT_MENU_BUTTON_TEXT).height
-      # Multi-rect shape (matches every other multi-column row) so
-      # mouse_update_input's +1 offset lines up with the column indices.
+      # Multi-rect row so mouse_update_input's +1 offset matches the column indices.
       @mouse_all_rects[0] = [
         @mouse_all_rects[0][0],
         [spr.x, spr.y, text_width, text_height]
@@ -479,14 +477,13 @@ class Menu_System
     end
   end
 
-  # Skips FrameworkUtils.ingame? on purpose - Scene_Menu is in outgame_scenes.
+  # Doesn't use FrameworkUtils.ingame?, since Scene_Menu counts as outgame.
   def open_cheat_menu_from_system
     SndLib.sys_ok
     SceneManager.call(Scene_CheatMainMenu)
   end
 
-  # Drives row 0's highlight off final cursor state, since it's a
-  # multi-column row and the base game's own opacity helpers skip those.
+  # Sets row 0's highlight from the final cursor state (the game's helpers skip multi-column rows).
   alias_method :set_cursor_position_CheatFramework, :set_cursor_position
 
   def set_cursor_position
@@ -503,8 +500,7 @@ class Menu_System
   end
 end
 
-# Open Cheat Menu is a rebindable vanilla Key Binds entry. Its key
-# (Input::SYM_KEYS[:CF_CHEAT_MENU]) is the single source of truth, also used by View Hotkeys (Controls.rb).
+# Open Cheat Menu is a rebindable vanilla Key Binds entry, stored in Input::SYM_KEYS[:CF_CHEAT_MENU].
 module FrameworkUtils
   def self.hook_vanilla_keybind_menu
     InputUtils.keyList << [
@@ -515,8 +511,7 @@ module FrameworkUtils
     ]
   end
 
-  # Resolves the live Main Menu Toggle key to a display string (e.g. "F9"
-  # or "M"), for View Hotkeys' own row and HotkeyReserved's dynamic lookup.
+  # Returns the live Main Menu Toggle key as a display string (e.g. "F9").
   def self.current_menu_toggle_key
     code = Input::SYM_KEYS[:CF_CHEAT_MENU] && Input::SYM_KEYS[:CF_CHEAT_MENU].find { |c| c != 0 }
     return nil unless code
@@ -526,8 +521,7 @@ module FrameworkUtils
   end
 end
 
-# Catches rebinds made through the vanilla Key Binds menu (not just View
-# Hotkeys), so the portable backup (config/hotkeys.ini) doesn't go stale.
+# Saves rebinds made in the vanilla Key Binds menu to the portable backup (config/hotkeys.ini).
 class CheatFramework
   alias_method :slow_trigger_VanillaKeybind, :slow_trigger
 

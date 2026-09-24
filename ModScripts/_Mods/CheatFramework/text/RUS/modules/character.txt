@@ -246,3 +246,33 @@ commands/sexual/reset
 
 command_help/sexual/reset
 Вернуть девственность. Может повлиять на атаки.
+
+commands/primary/weak
+Слабость
+
+commands/primary/sexy
+Сексуальность
+
+commands/primary/attack
+Атака
+
+commands/primary/defense
+Защита
+
+commands/primary/will
+Воля
+
+command_help/primary/bonus
+Бонус к снаряжению и состояниям. Сохраняется в игре.
+
+command_help/primary/will
+Бонус к снаряжению и состояниям. Ограничивает возбуждение и зависимость.
+
+command_help/primary/bonus2
+Отображается как (+Бонус) Значение. Бонус сохраняется при смене снаряжения.
+
+commands/sexual/atk_bonus
+Бонус к сексуальной атаке
+
+command_help/sexual/atk_bonus
+Прямой бонус к сексуальной атаке. Игнорирует ограничения и повреждения.

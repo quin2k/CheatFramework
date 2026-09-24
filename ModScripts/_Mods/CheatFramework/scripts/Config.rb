@@ -13,11 +13,7 @@ class FrameworkConfig
   #--------------------------------------------------------------------------
   # Legacy Global Variable Fixes
   #--------------------------------------------------------------------------
-  # Fixes for stale "Global Variables" entries in globals.ini carried over from an older config.
-  # Applied once at startup, before anything else reads globals.ini.
-  #   {type: :value,  key:, from:, to:} - value "from" -> "to"
-  #   {type: :rename, from:, to:}       - key "from" -> "to"
-  #   {type: :delete, key:}             - drop the key
+  # Fixes stale globals.ini entries once at startup, before anything reads them.
   LEGACY_GLOBAL_FIXES = [
     {type: :value, key: "Prevent Discard", from: "true", to: "1"},
   ]
@@ -123,8 +119,7 @@ class FrameworkConfig
     build_hotkey_map
   end
 
-  # Self-clears any of our own hotkeys sitting on a key HotkeyReserved flags.
-  # The menu toggle's key never appears in hotkey_defs (see Input::SYM_KEYS[:CF_CHEAT_MENU], scripts/Menu.rb).
+  # Clears any of our hotkeys sitting on a key HotkeyReserved flags.
   def clear_conflicting_hotkeys
     $framework.hotkey_defs.each do |full_key, data|
       next unless data[:key]
@@ -133,15 +128,12 @@ class FrameworkConfig
     end
   end
 
-  # Drops any "GROUP.Key" mapping whose command no longer exists (renamed, moved to a different
-  # key, or removed entirely) instead of reviving it as a phantom hotkey_defs entry - safer than
-  # guessing what it should remap to. $framework.commands is fully populated by init_modules,
-  # which always runs before this (see __init__.rb), so it's a complete, reliable source of truth.
+  # Drops any "GROUP.Key" mapping whose command no longer exists, instead of reviving a phantom entry.
+  # $framework.commands is fully populated by init_modules before this runs (see __init__.rb).
   def prune_orphaned_hotkeys(section)
     @key_ini[section].keys.each do |full_key|
       group, key = full_key.split('.', 2)
-      # split always yields a String key, but commands can be registered with either
-      # a String or Symbol key (see Controls.rb#resolve_record) - check both.
+      # Checks both String and Symbol keys, since commands can be registered with either.
       dict = group && key && $framework.commands[group.to_sym]
       next if dict && (dict.key?(key) || dict.key?(key.to_sym))
       @key_ini[section].delete(full_key)
@@ -157,8 +149,7 @@ class FrameworkConfig
     @key_ini[section].each do |full_key, value|
       next if value.nil?
 
-      # IniFile auto-typecasts a bare digit ("6") into an Integer on read -
-      # a real possibility now that digit keys are assignable hotkeys.
+      # IniFile reads a bare digit ("6") as an Integer; convert it back to a String.
       value = value.to_s.strip
       next if value.empty?
 
@@ -246,9 +237,8 @@ class FrameworkConfig
     save_menu_toggle_key_to_game_ini
   end
 
-  # hook_vanilla_keybind_menu puts :CF_CHEAT_MENU in InputUtils.keyList, so MouseSupport's
-  # frequent InputUtils.load_input_settings calls reload it from $LonaINI - write it there too
-  # or our default gets overwritten back to unbound the next time the mouse toggles.
+  # MouseSupport's frequent InputUtils.load_input_settings calls reload :CF_CHEAT_MENU from $LonaINI,
+  # so write it there too or the default resets to unbound.
   def save_menu_toggle_key_to_game_ini
     (0..2).each do |i|
       code = Input::SYM_KEYS[:CF_CHEAT_MENU][i]
@@ -371,7 +361,7 @@ class FrameworkConfig
   #--------------------------------------------------------------------------
   # Local/Global override handling (Config > Edit Globals)
   #--------------------------------------------------------------------------
-  # Unlike menu order/hotkeys, these two actively prune stale entries.
+  # Prunes stale override entries (force_modes and force_values).
   def init_force_modes
     compare_force_modes_to_ini
     save_force_modes_to_ini

@@ -72,6 +72,7 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
     - Mood Edit
     - Dirt Edit
     - Arousal/Morality Edits
+    - Weak/Sexy/Attack/Defense/Will Edits
   - Levels & Traits
     - Max Levels
     - Current Level
@@ -94,6 +95,7 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
   - Pregnancy
     - Preg Difficulty / Womb Seedbed (Impacts pregnancy length)
     - Protect Pregnancy (Infinite Baby Health)
+    - Suppress Menses
     - Impregnate Lona (Submenu, force specific race)
   - Appearance
     - Hair Color
@@ -102,6 +104,8 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
   - Sexual
     - Vaginal/Urethra/Anal Damage Edit
     - Vaginal/Urethra/Anal Damage Toggle
+    - Sex Attack Bonus
+    - Prevent Sex Death
     - Reset Sex Stats (Virginize)
 - Game Tweaks
   - Night Vision
@@ -383,6 +387,18 @@ This started out as "I'd like to be able to edit variables" and when I realized 
 - Tied the health refill for Prevent Death / Infinite Health to the code that handles hits instead of per tick.
 - Fixed crash for Companion Rape on older versions. Thank you zerk0000 for pointing out these issues.
 - Fixed an error with CompDoggy not having any grapple moves (not just art was sabotaged).
+
+</details>
+<details>
+<summary>Ver 1.4q Changelog</summary>
+
+- Added Weak, Sexy, Attack, Defense and Will edits to Primary Stats.
+  - Applied as a bonus over gear and states, shown as (+Bonus) Value. Saved per game.
+- Added "Sex Attack Bonus" to Character > Sexual. Flat bonus to all sex attacks; ignores caps and orifice damage.
+- Added "Prevent Sex Death" to Character > Sexual. Lona's sex attacks won't kill her partner.
+- Added "Suppress Menses" to Pregnancy. Hides menses-related events.
+- Fixed Pregnancy length edit should no longer shift after setting.
+- Fixed crash caused by opening the cheat menu during 'screen shake'.
 
 </details>
 
