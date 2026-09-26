@@ -49,9 +49,6 @@ commands/discard
 command_help/discard1
 Снятая одежда попадает в инвентарь.
 
-commands/unequip
-Снять одежду
-
 commands/forceunequip
 Принудительно снять
 
@@ -141,3 +138,12 @@ commands/preventsexdeath
 
 command_help/preventsexdeath1
 Сексуальные атаки Лоны не могут убить цель.
+
+commands/stripredress
+Раздеться / одеться
+
+command_help/stripredress1
+Снимает одежду. Нажмите ещё раз, чтобы надеть её обратно.
+
+command_help/stripredress2
+Надевает только то, что было снято. Сохраняется вместе с игрой.

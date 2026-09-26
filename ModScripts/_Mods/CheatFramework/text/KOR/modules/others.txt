@@ -49,9 +49,6 @@ commands/discard
 command_help/discard1
 벗긴 옷은 인벤토리로 들어갑니다.
 
-commands/unequip
-옷을 벗으세요
-
 commands/forceunequip
 강제로 장비 해제
 
@@ -141,3 +138,12 @@ commands/preventsexdeath
 
 command_help/preventsexdeath1
 로나의 성전투 공격으로는 상대를 죽일 수 없습니다.
+
+commands/stripredress
+벗기 / 다시 입기
+
+command_help/stripredress1
+옷을 벗습니다. 다시 누르면 옷을 다시 입습니다.
+
+command_help/stripredress2
+벗은 것만 다시 장착합니다. 저장 파일에 함께 저장됩니다.

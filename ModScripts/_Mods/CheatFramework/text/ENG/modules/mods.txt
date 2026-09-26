@@ -39,3 +39,6 @@ Filter Wounds
 
 commands/othermods/filter_bleeding
 Filter Bleeding
+
+commands/othermods/filter_glasses
+Filter Glasses

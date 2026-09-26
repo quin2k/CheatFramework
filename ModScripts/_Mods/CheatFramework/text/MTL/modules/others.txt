@@ -49,8 +49,14 @@ Prevent Discard
 command_help/discard1
 Stripped clothes go to your inventory.
 
-commands/unequip
-Remove Clothes
+commands/stripredress
+Strip / Redress
+
+command_help/stripredress1
+Removes your clothes. Press again to put them back on.
+
+command_help/stripredress2
+Only re-equips what it removed. Saved with your game.
 
 commands/forceunequip
 Force Unequip

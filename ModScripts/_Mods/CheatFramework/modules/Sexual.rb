@@ -287,3 +287,26 @@ module FrameworkUtils
     $story_stats["sex_record_birth_BabyLost"] = 0
   end
 end
+
+#--------------------------------------------------------------------------
+# Prevent Sex Death
+#--------------------------------------------------------------------------
+if $cheat_prevent_sex_death >= 0
+  PREVENT_SEX_DEATH_SKILLS = /\ABasic(Whore)?SexService_|\ABasicSexBloodlust\z/
+
+  class Game_NonPlayerCharacter
+    # Undoes only the hit that would have killed the target; the scene still ends by orgasm.
+    alias_method :cf_prevent_sex_death_take_skill_effect, :take_skill_effect
+    def take_skill_effect(user, skill, can_sap = false, force_hit = false)
+      guarded = $cheat_prevent_sex_death == 1 && user == $game_player.actor &&
+                skill.name =~ PREVENT_SEX_DEATH_SKILLS && !npc_dead?
+      return cf_prevent_sex_death_take_skill_effect(user, skill, can_sap, force_hit) unless guarded
+      health = @stat.get_stat("health")
+      sta    = @stat.get_stat("sta")
+      cf_prevent_sex_death_take_skill_effect(user, skill, can_sap, force_hit)
+      return unless npc_dead?
+      @stat.set_stat("health", health)
+      @stat.set_stat("sta", sta)
+    end
+  end
+end

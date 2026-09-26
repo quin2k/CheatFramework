@@ -42,3 +42,6 @@ commands/othermods/filter_wounds
 
 commands/othermods/filter_bleeding
 출혈 필터
+
+commands/othermods/filter_glasses
+안경 필터

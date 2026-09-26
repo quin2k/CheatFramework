@@ -49,9 +49,6 @@ Prevenir el descarte
 command_help/discard1
 Las prendas despojadas de sus prendas van a tu inventario.
 
-commands/unequip
-Quítate la ropa
-
 commands/forceunequip
 Desequipar por fuerza
 
@@ -141,3 +138,12 @@ Prevenir Muerte por Sexo
 
 command_help/preventsexdeath1
 Los ataques sexuales de Lona no pueden matar a su objetivo.
+
+commands/stripredress
+Desvestir / Vestir
+
+command_help/stripredress1
+Te quita la ropa. Pulsa de nuevo para volver a ponértela.
+
+command_help/stripredress2
+Solo vuelve a equipar lo que quitó. Se guarda con la partida.

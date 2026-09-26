@@ -49,9 +49,6 @@ commands/discard
 command_help/discard1
 脱下的衣物会进入你的物品栏。
 
-commands/unequip
-脱掉衣服
-
 commands/forceunequip
 强制卸下装备
 
@@ -141,3 +138,12 @@ commands/preventsexdeath
 
 command_help/preventsexdeath1
 洛娜的性愛攻擊無法殺死目標。
+
+commands/stripredress
+脫衣 / 穿回
+
+command_help/stripredress1
+脫下你的衣服。再按一次即可穿回。
+
+command_help/stripredress2
+只會重新裝備被脫下的物品。隨存檔保存。

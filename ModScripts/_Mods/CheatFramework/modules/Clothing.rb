@@ -30,9 +30,11 @@ module MenuFramework
       group:  :MISC,
       type:   :action,
       key:    "Remove Clothes",
-      label:  "modules/others:commands/unequip",
+      label:  "modules/others:commands/stripredress",
+      help1:  "modules/others:command_help/stripredress1",
+      help2:  "modules/others:command_help/stripredress2",
       hotkey: {key: "F3"},
-      action: -> { FrameworkUtils.unequipall(false) },
+      action: -> { FrameworkUtils.toggle_clothing },
       order:  60
     )
     register_command(
@@ -49,6 +51,31 @@ module MenuFramework
 end
 
 module FrameworkUtils
+  # Per-save record of the stripped clothing, as { slot => item id }.
+  CLOTHING_STATE_KEY = "CF_stripped_clothing"
+
+  # Re-equips the saved clothing if there is any, otherwise strips and saves it.
+  def self.toggle_clothing
+    return unless self.ingame?
+    actor = $game_player.actor
+    saved = $story_stats[CLOTHING_STATE_KEY]
+    if saved.is_a?(Hash)
+      saved.each do |slot, id|
+        next unless actor.equip_change_ok?(slot) && actor.equips[slot].nil?
+        actor.change_equip_by_id(slot, id)
+      end
+      $story_stats[CLOTHING_STATE_KEY] = 0
+      SndLib.sound_equip_armor
+    else
+      before = actor.equips
+      unequipall(false)
+      after = actor.equips
+      removed = {}
+      before.each_with_index { |item, slot| removed[slot] = item.id if item && after[slot].nil? }
+      $story_stats[CLOTHING_STATE_KEY] = removed unless removed.empty?
+    end
+  end
+
   def self.unequipall(force)
     if self.ingame?
       actor = $game_player.actor

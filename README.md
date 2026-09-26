@@ -51,7 +51,7 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
   - Heal a Wound
   - Exhausted
   - Give Money
-  - Remove Clothes [F3]
+  - Strip / Redress [F3]
   - Force Unequip [Shift+F3]
   - Open Bank Inventory [F2]
 - Toggles
@@ -150,6 +150,7 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
     - Filter Dirt
     - Filter Wounds
     - Filter Bleeding
+    - Filter Glasses
 - Config
   - View/Clear Hotkeys
   - Edit Menu Order 
@@ -399,6 +400,8 @@ This started out as "I'd like to be able to edit variables" and when I realized 
 - Added "Suppress Menses" to Pregnancy. Hides menses-related events.
 - Fixed Pregnancy length edit should no longer shift after setting.
 - Fixed crash caused by opening the cheat menu during 'screen shake'.
+- "Remove Clothes" is now "Strip / Redress" (F3): press again to put back on what it removed. Remembered per save.
+- Added "Filter Glasses" to the Filter Visuals menu (hides the glasses in Lona's portrait; requires Filter Visuals 1.2).
 
 </details>
 

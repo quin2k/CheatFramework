@@ -42,3 +42,6 @@ Filtro de Heridas
 
 commands/othermods/filter_bleeding
 Filtro de Sangrado
+
+commands/othermods/filter_glasses
+Filtro de Gafas

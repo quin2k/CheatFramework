@@ -106,6 +106,7 @@ module MenuFramework
       { key: :dirt,     order: 130 },
       { key: :wounds,   order: 140 },
       { key: :bleeding, order: 150 },
+      { key: :glasses,  order: 160 },
     ]
 
     FILTER_VISUAL_TOGGLES.each do |cfg|

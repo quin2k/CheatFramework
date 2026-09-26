@@ -42,3 +42,6 @@ commands/othermods/filter_wounds
 
 commands/othermods/filter_bleeding
 Фильтр кровотечения
+
+commands/othermods/filter_glasses
+Фильтр очков
