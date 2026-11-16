@@ -147,3 +147,12 @@ command_help/stripredress1
 
 command_help/stripredress2
 Надевает только то, что было снято. Сохраняется вместе с игрой.
+
+commands/smalltext
+Исправление мелкого текста
+
+command_help/smalltext1
+Делает уменьшенный текст (реплики в сторону, бормотание и т.п.) удобнее для чтения.
+
+command_help/difficultyoverride
+ВЫКЛ — сложность игры. HARD/HELL — как в этом режиме.

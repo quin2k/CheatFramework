@@ -216,8 +216,7 @@ module MenuFramework
       diff = current - target
       return if diff == 0
 
-      # Shifts the conception date, not the pregnancy length (fixed at conception; use difficulty).
-      # Explicit time shift: the default getTime is inverted vs Game_Date's day/night encoding.
+      # Shifts the conception date to change days to birth.
       preg = Game_Date.new(*actor.preg_date)
       if diff > 0
         preg.decDays(diff, preg.timeShift)

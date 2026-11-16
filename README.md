@@ -4,20 +4,29 @@
 
 [Latest version](../../releases/latest)
 
+**Updates & support:** [F95zone thread](https://f95zone.to/threads/306293/) (best place for questions and bug reports) · [raidgame.ru](https://raidgame.ru/mods/authors/42787/) · [SubscribeStar](https://subscribestar.art/quin2k) · [My other mods on GitHub](https://github.com/quin2k)
+
 ## Install Instructions
- - Put the CheatFramework folder into LonaRPG\ModScripts\_Mods. (e.g. LonaRPG\ModScripts\_Mods\CheatFramework\__init__.rb)
+ - Put the CheatFramework folder into LonaRPG\ModScripts\_Mods.
+   - When unzipping, don't use "Extract to CheatFramework v...\". That creates a nested folder and the mod won't load.
+     - WRONG: `LonaRPG\ModScripts\_Mods\CheatFramework v1.4q\CheatFramework\`
+     - CORRECT: `LonaRPG\ModScripts\_Mods\CheatFramework\`
+   - Inside the CheatFramework folder you should see `__init__.rb`, `_ModInfo.json`, `preview.png` and folders like `modules` and `text`, not another CheatFramework folder.
  - Once in place, open the MODS menu from within LonaRPG (right above EXIT).
  - Press action key (Z) to activate mods, left/right to change their order. 
    - The one that loads last 'wins'
  - When using a new mod or bringing mods to a new version of LonaRPG, it is good practice to activate only a few at a time.
  - Once you've made your changes, move to the top and select "Restart to Apply" (or Accept and just restart manually)
    - If you get an error during startup, you may need to edit LonaRPG\UserData\GameMods.ini to deactivate a mod.
-   - If any of my mods give you errors, please notify me on [F95zone](https://f95zone.to/members/quin2k.428612/) or [Discord](https://discord.com/users/292323791533506560).
+ - Loading a save made with a different set of mods shows a "WARNING / MOD DISMATCH!!" screen (with lines like `game_modded_save_clearn`). This is normal: the save remembers which mods were active and is warning you they've changed.
+   - Press Accept (Z) a few more times to get into the game, then save. The warning goes away until your mods change again.
+   - Big changes, like adding or removing RolePlay-S, can still break an existing save.
+ - If any of my mods give you errors, please let me know in the [F95zone thread](https://f95zone.to/threads/306293/).
 
 ## Requirements
 
 Lowest game version tested: `0.10.0.2`<br>
-Highest game version tested: `0.10.8.12`
+Highest game version tested: `0.10.8.33`
 
 
 ## Hotkeys
@@ -76,6 +85,7 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
   - Levels & Traits
     - Max Levels
     - Current Level
+    - Exp Rate
     - Traits per Level
     - Set Max Traits
     - Set current Trait Points
@@ -110,6 +120,8 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
 - Game Tweaks
   - Night Vision
   - Noclip
+  - Forage Glow
+  - Small Text Fix
   - Equip Anything
   - Fast Nap
   - Prevent Discard
@@ -126,7 +138,7 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
 - Difficulty
   - Edit World Difficulty
   - Item Decay Control
-  - Increased Drops
+  - Increase Drops
   - Addiction Effects (Off/Hard/Hell)
   - Milk Overflow (Off/Hard/Hell)
   - Preg Difficulty (same setting as under Character > Pregnancy)
@@ -398,10 +410,18 @@ This started out as "I'd like to be able to edit variables" and when I realized 
 - Added "Sex Attack Bonus" to Character > Sexual. Flat bonus to all sex attacks; ignores caps and orifice damage.
 - Added "Prevent Sex Death" to Character > Sexual. Lona's sex attacks won't kill her partner.
 - Added "Suppress Menses" to Pregnancy. Hides menses-related events.
-- Fixed Pregnancy length edit should no longer shift after setting.
+- Pregnancy length edit should no longer shift after setting.
 - Fixed crash caused by opening the cheat menu during 'screen shake'.
 - "Remove Clothes" is now "Strip / Redress" (F3): press again to put back on what it removed. Remembered per save.
 - Added "Filter Glasses" to the Filter Visuals menu (hides the glasses in Lona's portrait; requires Filter Visuals 1.2).
+- Added "Small Text Fix" to Game Tweaks. Keeps shrunk text readable.
+- Fixed back-end "Friendly Fire Fix" and Companion Rape issues.
+- Fixed "Prevent Discard" deleting clothes knocked off in combat.
+  - Thanks to [Echo2](https://f95zone.to/members/echo2.6846794/) for the report.
+- Fixed "Addiction Effects" on Hell not building addictions on lower difficulties.
+  - Thanks to [OliverMat](https://raidgame.ru/members/31883/) for the report.
+- "Addiction Effects" and "Milk Overflow" now match "Pregnancy Difficulty": Off leaves the game alone, Hard/Hell act like that mode.
+- "Reset Game Difficulty" now drops Doom to Hell instead of Hard.
 
 </details>
 

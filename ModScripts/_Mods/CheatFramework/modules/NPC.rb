@@ -108,7 +108,7 @@ if $cheat_friendly_fire_fix >= 0
       targeted = nil
 
       #Indirect attacks such as magic, arrows
-      if (user.class == Game_PorjectileCharacter || user.class == Game_DestroyableObject)
+      if user.is_a?(Game_PorjectileCharacter) || user.is_a?(Game_DestroyableObject)
         if user.event && user.event.summon_data && user.event.summon_data[:user]
           source = user.event.summon_data[:user]
 
@@ -146,6 +146,8 @@ if $cheat_friendly_fire_fix >= 0
 
       #Support magic/skill or target/attacker isn't an ally
       return false if skill && skill.respond_to?(:is_support) && skill.is_support
+      # A companion in :fucker state is Companion Rape at work, not friendly fire.
+      return false if $cheat_companion_rape == 1 && user.respond_to?(:ai_state) && user.ai_state == :fucker
       return false unless attacker && targeted
       true
     end
@@ -402,6 +404,13 @@ if $cheat_companion_rape >= 0
       when :flee; process_flee(target, distance, signal, sensor_type)
       else set_alert_level(0) if @fraction_mode == 1 || @fraction_mode == 4 || @fraction_mode == 2
       end
+    end
+  end
+
+  class Game_Actor
+    # The player is never granted the bypass; Sensors call this on whichever actor is scanning.
+    def cf_companion_rape_ignore_iff?
+      false
     end
   end
 

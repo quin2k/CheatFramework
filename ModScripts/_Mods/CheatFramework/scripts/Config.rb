@@ -13,7 +13,7 @@ class FrameworkConfig
   #--------------------------------------------------------------------------
   # Legacy Global Variable Fixes
   #--------------------------------------------------------------------------
-  # Fixes stale globals.ini entries once at startup, before anything reads them.
+  # Updates outdated globals.ini values at startup.
   LEGACY_GLOBAL_FIXES = [
     {type: :value, key: "Prevent Discard", from: "true", to: "1"},
   ]
@@ -128,8 +128,7 @@ class FrameworkConfig
     end
   end
 
-  # Drops any "GROUP.Key" mapping whose command no longer exists, instead of reviving a phantom entry.
-  # $framework.commands is fully populated by init_modules before this runs (see __init__.rb).
+  # Removes hotkey mappings for commands that don't exist.
   def prune_orphaned_hotkeys(section)
     @key_ini[section].keys.each do |full_key|
       group, key = full_key.split('.', 2)

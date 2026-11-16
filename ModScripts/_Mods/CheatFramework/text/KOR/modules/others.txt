@@ -147,3 +147,12 @@ command_help/stripredress1
 
 command_help/stripredress2
 벗은 것만 다시 장착합니다. 저장 파일에 함께 저장됩니다.
+
+commands/smalltext
+작은 글씨 수정
+
+command_help/smalltext1
+작아진 텍스트(방백, 중얼거림 등)를 더 읽기 쉽게 만듭니다.
+
+command_help/difficultyoverride
+꺼짐: 게임 난이도를 따릅니다. 어려움/지옥: 해당 모드처럼 작동합니다.

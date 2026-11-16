@@ -2,4 +2,4 @@ name
 作弊框架
 
 description
-作弊模组再次重制。详细更改请参见 https://github.com/quin2k/Cheat-Menu-Framework。
+作弊模组再次重制。详细更改请参见 https://github.com/quin2k/CheatFramework。

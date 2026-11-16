@@ -1,9 +1,6 @@
 commands/othermods
 기타 모드
 
-commands/roleplays
-RolePlay-S
-
 commands/roleplays/saves
 저장 제한 해제
 

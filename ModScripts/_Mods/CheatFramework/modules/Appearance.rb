@@ -39,7 +39,6 @@ module MenuFramework
                 { key: 5, label: "[#{$framework.txt("modules/character:commands/appearance/hair_color/5")}]" }
               ],
       action: ->(v) { $game_player.actor.record_HairColor = v; $game_player.refresh_chs },
-      hide:   -> { defined?(LonaRecolor) },
       order:  30
     )
     register_command(

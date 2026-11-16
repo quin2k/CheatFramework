@@ -147,3 +147,12 @@ Te quita la ropa. Pulsa de nuevo para volver a ponértela.
 
 command_help/stripredress2
 Solo vuelve a equipar lo que quitó. Se guarda con la partida.
+
+commands/smalltext
+Arreglo de texto pequeño
+
+command_help/smalltext1
+Hace que el texto reducido (apartes, murmullos, etc.) sea más fácil de leer.
+
+command_help/difficultyoverride
+DESACTIVADO usa la dificultad del juego. DURO/INFIERNO actúan como ese modo.

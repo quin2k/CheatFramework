@@ -112,6 +112,15 @@ module MenuFramework
       gdef:   false,
       order:  25
     )
+    register_command(
+      type:   :toggle,
+      key:    "Small Text Fix",
+      label:  "modules/others:commands/smalltext",
+      help1:  "modules/others:command_help/smalltext1",
+      state:  "$cheat_small_text",
+      gdef:   true,
+      order:  27
+    )
   end
 end
 
@@ -312,6 +321,18 @@ class Game_Event
     return if lit == @cheat_forage_glow_lit
     @cheat_forage_glow_lit = lit
     self.tone = lit ? Tone.new(120, 120, 60, 0) : Tone.new(0, 0, 0, 0)
+  end
+end
+
+#--------------------------------------------------------------------------
+# Small Text Fix
+#--------------------------------------------------------------------------
+# Stops '\}' shrinks codes from bringing the font below 12 (8 is unreadable).
+class Window_Base
+  alias_method :cf_small_text_fix_make_font_smaller, :make_font_smaller
+  def make_font_smaller
+    return cf_small_text_fix_make_font_smaller unless $cheat_small_text
+    contents.font.size = [contents.font.size - 8, 12].max if contents.font.size > 12
   end
 end
 

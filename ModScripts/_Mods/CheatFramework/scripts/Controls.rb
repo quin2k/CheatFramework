@@ -1,7 +1,7 @@
 #==============================================================================
 # Config screens: Edit Menu Order, View Hotkeys, Edit Globals
 #------------------------------------------------------------------------------
-# Core tooling, not a cheat: lives in scripts/ (always loaded), not modules/. No FrameworkModule block.
+# Core tooling, always loaded from scripts/.
 # Text keys live in text/<LANG>/menu.txt.
 #==============================================================================
 

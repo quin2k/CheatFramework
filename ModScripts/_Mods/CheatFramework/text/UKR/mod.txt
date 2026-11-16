@@ -2,4 +2,4 @@ name
 Чіт-меню
 
 description
-Мод Чити знову перероблений. Подробиці змін дивіться на сторінці https://github.com/quin2k/Cheat-Menu-Framework.
+Мод Чити знову перероблений. Подробиці змін дивіться на сторінці https://github.com/quin2k/CheatFramework.

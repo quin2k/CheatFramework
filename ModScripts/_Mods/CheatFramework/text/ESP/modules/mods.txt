@@ -1,9 +1,6 @@
 commands/othermods
 Otros mods
 
-commands/roleplays
-RolePlay-S
-
 commands/roleplays/saves
 Desactivar limitador de guardado
 

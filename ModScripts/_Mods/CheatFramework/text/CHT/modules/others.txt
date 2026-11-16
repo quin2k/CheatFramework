@@ -147,3 +147,12 @@ command_help/stripredress1
 
 command_help/stripredress2
 只會重新裝備被脫下的物品。隨存檔保存。
+
+commands/smalltext
+小字修正
+
+command_help/smalltext1
+讓縮小的文字（旁白、低語等）更容易閱讀。
+
+command_help/difficultyoverride
+关闭：使用遊戲難度。困難/地獄：比照該模式。

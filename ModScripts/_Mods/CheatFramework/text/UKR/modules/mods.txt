@@ -1,9 +1,6 @@
 commands/othermods
 Інші моди
 
-commands/roleplays
-RolePlay-S
-
 commands/roleplays/saves
 Відкл. ліміт збережених
 

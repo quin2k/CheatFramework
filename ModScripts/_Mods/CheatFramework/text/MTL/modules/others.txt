@@ -41,7 +41,13 @@ commands/forageglow
 Forage Glow
 
 command_help/forageglow1
-Makes forageable resource nodes easier to spot. 
+Makes forageable resource nodes easier to spot.
+
+commands/smalltext
+Small Text Fix
+
+command_help/smalltext1
+Makes shrunk text (asides, muttering, etc.) easier to read.
 
 commands/discard
 Prevent Discard
@@ -93,6 +99,9 @@ Milk Overflow
 
 command_help/milkoverflow1
 Override difficulty-based milk overflow/splash events.
+
+command_help/difficultyoverride
+OFF uses the game's difficulty. HARD/HELL act like that mode.
 
 commands/despawnfix
 Item Decay Control

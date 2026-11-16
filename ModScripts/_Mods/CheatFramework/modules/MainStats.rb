@@ -158,7 +158,7 @@ module FrameworkUtils
     $story_stats['CF_lona_vulnerable'] == 1
   end
 
-  # Pins stamina at 0 when Lona Vulnerable and Infinite Stamina are both on; Vulnerable alone only caps it.
+  # Caps or pins Lona's stamina for Lona Vulnerable.
   def self.apply_stamina_lock
     actor = $game_player.actor
     # Skips the lock during birth so contractions can drain stamina and she faints.

@@ -147,3 +147,12 @@ command_help/stripredress1
 
 command_help/stripredress2
 Одягає лише те, що було знято. Зберігається разом із грою.
+
+commands/smalltext
+Виправлення дрібного тексту
+
+command_help/smalltext1
+Робить зменшений текст (репліки вбік, бурмотіння тощо) зручнішим для читання.
+
+command_help/difficultyoverride
+ВИКЛ — складність гри. Важко/Пекло — як у цьому режимі.

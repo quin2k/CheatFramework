@@ -2,4 +2,4 @@ name
 Cheat Framework Rework
 
 description
-Cheats Mod reimagined (again). For detailed changes, see https://github.com/quin2k/Cheat-Menu-Framework.
+Cheats Mod reimagined (again). For detailed changes, see https://github.com/quin2k/CheatFramework.

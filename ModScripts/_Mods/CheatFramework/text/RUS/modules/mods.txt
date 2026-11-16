@@ -1,9 +1,6 @@
 commands/othermods
 Другие моды
 
-commands/roleplays
-RolePlay-S
-
 commands/roleplays/saves
 Откл. лимит сохранений
 
