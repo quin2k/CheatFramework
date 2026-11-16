@@ -10,6 +10,9 @@ Womb Seedbed
 commands/protect
 Protect Pregnancy
 
+commands/suppress_menses
+Suppress Menses
+
 commands/impreg
 Impregnate Lona
 
@@ -60,6 +63,12 @@ Directly adjusts Lona's status.
 
 command_help/protect
 Keeps Baby Health at max, disables 'Clear'
+
+command_help/suppress_menses1
+Hides menses and ovulation popups and effects.
+
+command_help/suppress_menses2
+The cycle itself is unchanged; fertility is not affected.
 
 command_help/length1
 Select to edit duration of pregnancy.

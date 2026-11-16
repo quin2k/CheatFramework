@@ -1,9 +1,6 @@
 commands/othermods
 其他模组
 
-commands/roleplays
-RolePlay-S
-
 commands/roleplays/saves
 禁用保存限制器
 
@@ -42,3 +39,6 @@ commands/othermods/filter_wounds
 
 commands/othermods/filter_bleeding
 出血濾鏡
+
+commands/othermods/filter_glasses
+眼鏡濾鏡

@@ -58,6 +58,17 @@ module MenuFramework
       help1:  "modules/pregnancy:command_help/protect",
       order:  30
     )
+    register_command(
+      group:  :PREGNANCY,
+      type:   :toggle,
+      key:    "Suppress Menses",
+      label:  "modules/pregnancy:commands/suppress_menses",
+      state:  "$cheat_suppress_menses",
+      gdef:   false,
+      help1:  "modules/pregnancy:command_help/suppress_menses1",
+      help2:  "modules/pregnancy:command_help/suppress_menses2",
+      order:  35
+    )
 
     #--------------------------------------------------------------------------
     # Impregnate Submenu
@@ -205,13 +216,12 @@ module MenuFramework
       diff = current - target
       return if diff == 0
 
-      # Shifts the conception date rather than the pregnancy length itself -
-      # length comes from an array fixed at conception; use difficulty to change that.
+      # Shifts the conception date to change days to birth.
       preg = Game_Date.new(*actor.preg_date)
       if diff > 0
-        preg.decDays(diff)
+        preg.decDays(diff, preg.timeShift)
       elsif diff < 0
-        preg.addDays(-diff)
+        preg.addDays(-diff, preg.timeShift)
       end
 
       actor.preg_date = preg.date
@@ -228,6 +238,15 @@ module FrameworkUtils
     return if $game_player.actor.preg_level == 0
 
     $game_player.actor.baby_health += 999 if $cheat_protect_pregnancy
+  end
+end
+
+# Skips the wake-up menses/ovulation events; the cycle itself keeps advancing.
+module GIM_OVC
+  alias_method :check_wakeup_event_Menses_Suppress, :check_wakeup_event_Menses
+  def check_wakeup_event_Menses(parallel = false)
+    return false if $cheat_suppress_menses
+    check_wakeup_event_Menses_Suppress(parallel)
   end
 end
 

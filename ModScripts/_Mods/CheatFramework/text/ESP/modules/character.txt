@@ -246,3 +246,33 @@ Restablecer estadísticas de sexo
 
 command_help/sexual/reset
 Virginizar a Lona. Puede provocar un ataque sexual.
+
+commands/primary/weak
+Debilidad
+
+commands/primary/sexy
+Sensualidad
+
+commands/primary/attack
+Ataque
+
+commands/primary/defense
+Defensa
+
+commands/primary/will
+Voluntad
+
+command_help/primary/bonus
+Bono sobre equipo y estados. Se guarda por partida.
+
+command_help/primary/will
+Bono sobre equipo y estados. Limita la excitación y la adicción.
+
+command_help/primary/bonus2
+Se muestra como (+Bono) Valor. El bono se mantiene al cambiar de equipo.
+
+commands/sexual/atk_bonus
+Bono de Ataque Sexual
+
+command_help/sexual/atk_bonus
+Bono fijo al ataque sexual. Ignora los límites y el daño.

@@ -1,9 +1,6 @@
 commands/othermods
 Інші моди
 
-commands/roleplays
-RolePlay-S
-
 commands/roleplays/saves
 Відкл. ліміт збережених
 
@@ -42,3 +39,6 @@ commands/othermods/filter_wounds
 
 commands/othermods/filter_bleeding
 Фільтр кровотечі
+
+commands/othermods/filter_glasses
+Фільтр окулярів

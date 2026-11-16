@@ -52,14 +52,14 @@ module MenuFramework
       help1:  "modules/others:command_help/diff",
       hide:   -> { $story_stats["Setup_Hardcore"] != 2 },
       order:  70,
-      action: -> { $story_stats["Setup_Hardcore"] = 0
+      action: -> { $story_stats["Setup_Hardcore"] = 1
                    $story_stats["record_giveup_hardcore"] = 0 }
     )
 
     # Off/Hard/Hell list, matching Pregnancy Difficulty's naming scheme.
     DIFFICULTY_TIER_LIST = [
-      { key: -1, label: "[#{$framework.txt("menu:cheat_toggle/off")}]" },
-      { key:  0, label: "[#{$framework.txt("menu:cheat_toggle/hard")}]" },
+      { key:  0, label: "[#{$framework.txt("menu:cheat_toggle/off")}]" },
+      { key: -1, label: "[#{$framework.txt("menu:cheat_toggle/hard")}]" },
       { key:  1, label: "[#{$framework.txt("menu:cheat_toggle/hell")}]" },
     ]
     register_command(
@@ -67,6 +67,7 @@ module MenuFramework
       key:    "Addiction Effects",
       label:  "modules/others:commands/addictioneffects",
       help1:  "modules/others:command_help/addictioneffects1",
+      help2:  "modules/others:command_help/difficultyoverride",
       state:  "$cheat_addiction_effects",
       list:   DIFFICULTY_TIER_LIST,
       gdef:   0,
@@ -77,6 +78,7 @@ module MenuFramework
       key:    "Milk Overflow",
       label:  "modules/others:commands/milkoverflow",
       help1:  "modules/others:command_help/milkoverflow1",
+      help2:  "modules/others:command_help/difficultyoverride",
       state:  "$cheat_milk_overflow",
       list:   DIFFICULTY_TIER_LIST,
       gdef:   0,
@@ -97,8 +99,7 @@ module MenuFramework
                 { key:  5,  label: "[x8]" },
                 { key: -1,  label: "[#{$framework.txt("menu:cheat_toggle/infinite")}]" },
               ],
-      # 0 doubles as both "Off" and "not installed" (the patch's own gate is `!= 0`) - defaulting
-      # here instead of x1 means a fresh install doesn't pay for the patch until actually used.
+      # Defaults to 0 (Off), so the patch isn't installed until it's used.
       gdef:   1,
       restart: 0,
       order:  20
@@ -125,16 +126,24 @@ end
 #--------------------------------------------------------------------------
 # Addiction Effects
 #--------------------------------------------------------------------------
-# Ograsm/Semen/Drug addiction overevents normally only trigger at Hell+ difficulty - Off suppresses
-# them regardless, Hell forces them regardless, Hard leaves the game's own check alone.
+# Hard blocks the addiction events, Hell runs them on any difficulty, Off leaves the game alone.
 module GIM_OVC
   alias_method :cf_addiction_check_half_over_event, :check_half_over_event
   def check_half_over_event(parallel = false)
+    cf_addiction_sync_cap
     cf_addiction_check_half_over_event(parallel)
     return unless $cheat_addiction_effects == 1 && $story_stats["Setup_Hardcore"] < 1
     checkOev_OgrasmAddiction(parallel)
     checkOev_SemenAddiction(parallel)
     checkOev_DrugAddiction(parallel)
+  end
+
+  # Opens the addiction caps while Addiction Effects is on Hell.
+  def cf_addiction_sync_cap
+    actor = $game_player.actor
+    want = $cheat_addiction_effects == 1 || $story_stats["Setup_Hardcore"] >= 1
+    open = actor.battle_stat.get_stat("drug_addiction_level", Game_Actor::MAX_TRUE) > 0
+    actor.fetishHardcore(want) if want != open
   end
 
   alias_method :cf_addiction_off_ograsm, :checkOev_OgrasmAddiction
@@ -159,9 +168,20 @@ end
 #--------------------------------------------------------------------------
 # Milk Overflow
 #--------------------------------------------------------------------------
-# checkOev_Milk gates itself on Hell+ difficulty internally - Off/Hell temporarily force that gate
-# below/above for one call instead of duplicating its body; Hard leaves it alone.
+# Hard blocks the milk overflow events, Hell runs them on any difficulty, Off leaves the game alone.
 module GIM_OVC
+  alias_method :cf_milk_overflow_check_half_over_event, :check_half_over_event
+  def check_half_over_event(parallel = false)
+    cf_milk_overflow_check_half_over_event(parallel)
+    checkOev_MilkOvercharge(parallel) if $cheat_milk_overflow == 1 && $story_stats["Setup_Hardcore"] < 1
+  end
+
+  alias_method :cf_milk_overflow_checkOev_MilkOvercharge, :checkOev_MilkOvercharge
+  def checkOev_MilkOvercharge(parallel = false)
+    return if $cheat_milk_overflow == -1
+    cf_milk_overflow_checkOev_MilkOvercharge(parallel)
+  end
+
   alias_method :cf_milk_overflow_checkOev_Milk, :checkOev_Milk
   def checkOev_Milk(parallel = false)
     return if $cheat_milk_overflow == -1

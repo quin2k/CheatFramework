@@ -26,7 +26,7 @@ cheat_toggle/default
 기본
 
 cheat_toggle/hard
-딱딱한
+어려움
 
 cheat_toggle/hell
 지옥

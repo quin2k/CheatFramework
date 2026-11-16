@@ -49,9 +49,6 @@ commands/discard
 command_help/discard1
 Снятая одежда попадает в инвентарь.
 
-commands/unequip
-Снять одежду
-
 commands/forceunequip
 Принудительно снять
 
@@ -135,3 +132,27 @@ commands/companionrape
 
 command_help/companionrape1
 Позволяет спутникам преследовать Лону в соответствии с их предпочтениями.
+
+commands/preventsexdeath
+Предотвратить смерть от секса
+
+command_help/preventsexdeath1
+Сексуальные атаки Лоны не могут убить цель.
+
+commands/stripredress
+Раздеться / одеться
+
+command_help/stripredress1
+Снимает одежду. Нажмите ещё раз, чтобы надеть её обратно.
+
+command_help/stripredress2
+Надевает только то, что было снято. Сохраняется вместе с игрой.
+
+commands/smalltext
+Исправление мелкого текста
+
+command_help/smalltext1
+Делает уменьшенный текст (реплики в сторону, бормотание и т.п.) удобнее для чтения.
+
+command_help/difficultyoverride
+ВЫКЛ — сложность игры. HARD/HELL — как в этом режиме.

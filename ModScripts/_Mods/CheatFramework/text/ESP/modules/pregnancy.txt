@@ -72,3 +72,12 @@ Eliminar el embarazo de Lona en silencio.
 
 command_help/clear2
 Si está desactivada, la protección contra el embarazo está activada.
+
+commands/suppress_menses
+Suprimir Menstruación
+
+command_help/suppress_menses1
+Oculta las ventanas emergentes y efectos de menstruación y ovulación.
+
+command_help/suppress_menses2
+El ciclo en sí no cambia; la fertilidad no se ve afectada.

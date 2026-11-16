@@ -72,3 +72,12 @@ command_help/clear1
 
 command_help/clear2
 비활성화된 경우, 임신 보호 기능이 활성화됩니다.
+
+commands/suppress_menses
+생리 억제
+
+command_help/suppress_menses1
+생리와 배란의 팝업 및 효과를 숨깁니다.
+
+command_help/suppress_menses2
+주기 자체는 변하지 않으며, 가임력에는 영향이 없습니다.

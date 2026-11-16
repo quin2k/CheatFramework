@@ -22,6 +22,30 @@ Morality
 command_help/moral
 Morality <30 will cause humans to attack.
 
+commands/primary/weak
+Weak
+
+commands/primary/sexy
+Sexy
+
+commands/primary/attack
+Attack
+
+commands/primary/defense
+Defense
+
+commands/primary/will
+Will
+
+command_help/primary/bonus
+Bonus over gear and states. Saved per game.
+
+command_help/primary/will
+Bonus over gear and states. Limits arousal and addiction.
+
+command_help/primary/bonus2
+Shown as (+Bonus) Value. The bonus stays when gear changes.
+
 commands/levels
 Levels & Traits
 
@@ -246,3 +270,9 @@ Reset Sex Stats
 
 command_help/sexual/reset
 Virginize Lona. May impact sex attack.
+
+commands/sexual/atk_bonus
+Sex Attack Bonus
+
+command_help/sexual/atk_bonus
+Flat bonus to sex attack. Ignores caps and damage.

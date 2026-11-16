@@ -127,10 +127,11 @@ class CheatFramework
   end
 end
 
-# Releases Lona Vulnerable the instant she actually collapses, so she isn't pinned back to 0 on waking.
+# Refills Infinite Health before each death check; releases Lona Vulnerable when she collapses.
 class Game_Actor
   alias_method :determine_death_LONA_VULNERABLE, :determine_death
   def determine_death
+    FrameworkUtils.health_to_max if $cheat_infinite_health && $game_player && self == $game_player.actor
     was_death = @action_state == :death
     determine_death_LONA_VULNERABLE
     $story_stats['CF_lona_vulnerable'] = 0 if !was_death && @action_state == :death && FrameworkUtils.lona_vulnerable?
@@ -157,11 +158,10 @@ module FrameworkUtils
     $story_stats['CF_lona_vulnerable'] == 1
   end
 
-  # Vulnerable alone only caps from above, so she can still faint for real; combined with
-  # Infinite Stamina, a plain top-up would put her back at full, so this pins her at 0 instead.
+  # Caps or pins Lona's stamina for Lona Vulnerable.
   def self.apply_stamina_lock
     actor = $game_player.actor
-    # Water's broken (base game's own "ready to birth" check) - let contractions/birth drain sta through, she's meant to faint here.
+    # Skips the lock during birth so contractions can drain stamina and she faints.
     return if actor.preg_level == 5 && $story_stats['dialog_ready_to_birth'] == 0
     if $cheat_infinite_stamina && lona_vulnerable?
       actor.sta = 0 if actor.sta != 0

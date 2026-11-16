@@ -72,3 +72,12 @@ command_help/clear1
 
 command_help/clear2
 Если отключено, то "Защита Беременности" включена.
+
+commands/suppress_menses
+Подавить менструацию
+
+command_help/suppress_menses1
+Скрывает всплывающие окна и эффекты менструации и овуляции.
+
+command_help/suppress_menses2
+Цикл не меняется; на фертильность это не влияет.

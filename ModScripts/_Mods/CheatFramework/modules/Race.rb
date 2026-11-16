@@ -271,8 +271,7 @@ if $cheat_deepone_weak_fix >= 0
     msgbox ex.message + "\n" + ex.backtrace.join("\n")
   end
 
-  # TrueDeepone.json's +1000 "weak" penalty is a state effect load_script doesn't
-  # touch - tag the ItemEffect instance so #adjust can zero it out live.
+  # Tags TrueDeepone's +1000 weak state effect so #adjust can zero it out live.
   class << DataManager
     alias_method :cf_deepone_weak_fix_load_mod_database, :load_mod_database
     def load_mod_database
@@ -428,8 +427,7 @@ if $cheat_max_sirens >= 0
       event = @event
       return unless event
       return unless event.name == "SummonDeeponeProjectile"
-      # Toggled to Disabled after this already installed this session - -1 would otherwise get
-      # interpolated straight into the rewritten command below and delete sirens on sight.
+      # Guards against -1 (Disabled) being interpolated into the rewritten command below.
       return if $cheat_max_sirens == -1
       event.pages.each do |page|
         next unless page.list

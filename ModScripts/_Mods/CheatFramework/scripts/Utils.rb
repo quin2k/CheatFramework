@@ -66,8 +66,7 @@ module HotkeySymbols
     SYMBOLS_BY_NAME[name]
   end
 
-  # Unlike name_for, always returns something displayable, including symbols
-  # the table excludes (like :LETTER_C) by stripping the RGSS-internal prefix directly.
+  # Returns a display name for any key, including symbols the table excludes (like :LETTER_C).
   def self.clean_name_for(symbol)
     return name_for(symbol) if DISPLAY_NAMES.key?(symbol)
     str = symbol.to_s
@@ -115,8 +114,16 @@ module FrameworkUtils
     @menu_scenes.any? { |scene_class| SceneManager.scene_is?(scene_class) }
   end
 
-  # True if this hotkey's physical key is already bound to one of the game's
-  # own controls (Input::SYM_KEYS, live-updated by Key Binds). F-keys never go through this check.
+  # Per-save bonus stored in $story_stats; used by the Primary and Sexual modules.
+  def self.stat_bonus(stat)
+    ($story_stats && $story_stats["CF_bonus_#{stat}"]) || 0
+  end
+
+  def self.player_actor?(actor)
+    $game_player && actor.equal?($game_player.actor)
+  end
+
+  # Checks whether the hotkey's key is already bound to one of the game's own controls.
   def self.claimed_by_game_controls?(key_const)
     vk_code = Input::KEYMAP[key_const]
     return false unless vk_code
@@ -144,8 +151,7 @@ module FrameworkUtils
               .map { |pair, _idx| pair }
   end
 
-  # True if the live value disagrees with the boot-time snapshot: crossed the
-  # restart: <number> sentinel boundary, or (restart: true) just changed at all.
+  # Checks whether a command's value changed since boot in a way that needs a restart.
   def self.restart_mismatch?(record)
     return false unless record && record[:state]
     restart = record[:restart]
@@ -157,8 +163,7 @@ module FrameworkUtils
     restart.is_a?(Numeric) ? (current_val == restart) != boot_disabled : current_val != boot_disabled
   end
 
-  # Flags that a restart is needed: on every change for restart: true, or only
-  # when the change crosses the disabled/enabled boundary for restart: <number>.
+  # Flags that a restart is needed after a command's value changes.
   def self.mark_restart_needed(record)
     return unless record && record[:restart]
     if record[:restart].is_a?(Numeric)
@@ -266,8 +271,7 @@ end
 #--------------------------------------------------------------------------
 # Calls $framework.on_save_ready after a new game or a loaded save
 #--------------------------------------------------------------------------
-# Three hooks for full coverage: a fresh game, Scene_Load (title-screen and
-# in-game load), and Scene_CustomModeLoad (auto-saves, Doom-mode save, RolePlay-S quickload).
+# Hooks a fresh game, Scene_Load, and Scene_CustomModeLoad (auto-saves, Doom-mode save, quickload).
 module DataManager
   class << self
     alias_method :setup_new_game_CheatFramework, :setup_new_game

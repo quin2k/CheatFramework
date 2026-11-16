@@ -112,6 +112,15 @@ module MenuFramework
       gdef:   false,
       order:  25
     )
+    register_command(
+      type:   :toggle,
+      key:    "Small Text Fix",
+      label:  "modules/others:commands/smalltext",
+      help1:  "modules/others:command_help/smalltext1",
+      state:  "$cheat_small_text",
+      gdef:   true,
+      order:  27
+    )
   end
 end
 
@@ -166,7 +175,7 @@ if $cheat_classless_society >= 0
     end
     def wtype_sealed?(wtype_id)
       return cf_classless_society_wtype_sealed(wtype_id) unless $cheat_classless_society == 1
-      # equippable? checks this separately from equip_wtype_ok? - e.g. TrueDeepone's wtype_seal.
+      # Reports no weapon type as sealed (e.g. TrueDeepone's wtype_seal).
       false
     end
     def atype_sealed?(atype_id)
@@ -186,7 +195,7 @@ if $cheat_classless_society >= 0
     def equip_change_ok?(slot_id)
       return cf_classless_society_equip_change_ok(slot_id) unless $cheat_classless_society == 1
       resolved_slot = slot_id.is_a?(String) ? $data_system.equip_type_name[slot_id] : slot_id
-      # Only bondage/cursed items - other fixed/sealed slots stay blocked.
+      # Allows changing slots that hold bondage items; other sealed slots stay blocked.
       return true if equips[resolved_slot] && equips[resolved_slot].type_tag == "Bondage"
       cf_classless_society_equip_change_ok(slot_id)
     end
@@ -269,8 +278,7 @@ end
 #--------------------------------------------------------------------------
 # Noclip
 #--------------------------------------------------------------------------
-# debug_through? already bypasses both terrain and NPC/event collision (see passable? in
-# 33_Game_CharacterBase.rb) - normally only true in the RPG Maker editor's own test-play mode.
+# Forces debug_through? on; it already bypasses terrain and NPC/event collision.
 class Game_Player
   alias_method :cf_noclip_debug_through?, :debug_through?
   def debug_through?
@@ -313,6 +321,18 @@ class Game_Event
     return if lit == @cheat_forage_glow_lit
     @cheat_forage_glow_lit = lit
     self.tone = lit ? Tone.new(120, 120, 60, 0) : Tone.new(0, 0, 0, 0)
+  end
+end
+
+#--------------------------------------------------------------------------
+# Small Text Fix
+#--------------------------------------------------------------------------
+# Stops '\}' shrinks codes from bringing the font below 12 (8 is unreadable).
+class Window_Base
+  alias_method :cf_small_text_fix_make_font_smaller, :make_font_smaller
+  def make_font_smaller
+    return cf_small_text_fix_make_font_smaller unless $cheat_small_text
+    contents.font.size = [contents.font.size - 8, 12].max if contents.font.size > 12
   end
 end
 

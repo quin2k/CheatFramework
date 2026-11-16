@@ -84,7 +84,7 @@ module FrameworkUtils
     "\t\t\treturn portrait_hide\r\n" \
     "\t\tend\r\n"
 
-  # Falls back to the untouched script if either anchor line has since changed upstream.
+  # Falls back to the untouched script if either anchor line isn't found.
   def self.patch_companion_disband(script)
     return script unless script =~ DISBAND_MENU_ANCHOR && script =~ DISBAND_CASE_ANCHOR
     script = script.sub(DISBAND_MENU_ANCHOR) { "#{$1}#{DISBAND_MENU_ENTRY}" }

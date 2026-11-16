@@ -246,3 +246,33 @@ commands/sexual/reset
 
 command_help/sexual/reset
 로나를 처녀로 만드세요. 성폭행에 영향을 줄 수 있습니다.
+
+commands/primary/weak
+쇠약
+
+commands/primary/sexy
+매력
+
+commands/primary/attack
+공격력
+
+commands/primary/defense
+방어력
+
+commands/primary/will
+의지력
+
+command_help/primary/bonus
+장비와 상태 외의 보너스. 게임에 저장됩니다.
+
+command_help/primary/will
+장비와 상태 외의 보너스. 각성과 중독을 제한합니다.
+
+command_help/primary/bonus2
+(+보너스) 값으로 표시됩니다. 장비가 바뀌어도 보너스는 유지됩니다.
+
+commands/sexual/atk_bonus
+성전투 공격 보너스
+
+command_help/sexual/atk_bonus
+성전투 공격력에 고정 보너스를 더합니다. 상한과 손상을 무시합니다.

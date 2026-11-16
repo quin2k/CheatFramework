@@ -49,9 +49,6 @@ commands/discard
 command_help/discard1
 脱下的衣物会进入你的物品栏。
 
-commands/unequip
-脱掉衣服
-
 commands/forceunequip
 强制卸下装备
 
@@ -135,3 +132,27 @@ commands/companionrape
 
 command_help/companionrape1
 允许同伴根据自己的偏好以洛娜为目标。
+
+commands/preventsexdeath
+防止性愛死亡
+
+command_help/preventsexdeath1
+洛娜的性愛攻擊無法殺死目標。
+
+commands/stripredress
+脫衣 / 穿回
+
+command_help/stripredress1
+脫下你的衣服。再按一次即可穿回。
+
+command_help/stripredress2
+只會重新裝備被脫下的物品。隨存檔保存。
+
+commands/smalltext
+小字修正
+
+command_help/smalltext1
+讓縮小的文字（旁白、低語等）更容易閱讀。
+
+command_help/difficultyoverride
+关闭：使用遊戲難度。困難/地獄：比照該模式。

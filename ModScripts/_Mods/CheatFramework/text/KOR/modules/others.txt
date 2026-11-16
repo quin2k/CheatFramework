@@ -49,9 +49,6 @@ commands/discard
 command_help/discard1
 벗긴 옷은 인벤토리로 들어갑니다.
 
-commands/unequip
-옷을 벗으세요
-
 commands/forceunequip
 강제로 장비 해제
 
@@ -135,3 +132,27 @@ commands/companionrape
 
 command_help/companionrape1
 동료가 자신의 선호에 따라 로나를 목표로 삼을 수 있도록 합니다.
+
+commands/preventsexdeath
+성전투 사망 방지
+
+command_help/preventsexdeath1
+로나의 성전투 공격으로는 상대를 죽일 수 없습니다.
+
+commands/stripredress
+벗기 / 다시 입기
+
+command_help/stripredress1
+옷을 벗습니다. 다시 누르면 옷을 다시 입습니다.
+
+command_help/stripredress2
+벗은 것만 다시 장착합니다. 저장 파일에 함께 저장됩니다.
+
+commands/smalltext
+작은 글씨 수정
+
+command_help/smalltext1
+작아진 텍스트(방백, 중얼거림 등)를 더 읽기 쉽게 만듭니다.
+
+command_help/difficultyoverride
+꺼짐: 게임 난이도를 따릅니다. 어려움/지옥: 해당 모드처럼 작동합니다.

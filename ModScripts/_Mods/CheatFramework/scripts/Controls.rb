@@ -1,9 +1,8 @@
 #==============================================================================
 # Config screens: Edit Menu Order, View Hotkeys, Edit Globals
 #------------------------------------------------------------------------------
-# Core framework tooling, not a cheat, so it lives in scripts/ (always
-# loaded) rather than modules/. No FrameworkModule block; load order is just
-# top-to-bottom in this file. Text keys live in text/<LANG>/menu.txt.
+# Core tooling, always loaded from scripts/.
+# Text keys live in text/<LANG>/menu.txt.
 #==============================================================================
 
 #==============================================================================
@@ -65,8 +64,7 @@ class Window_CheatMenuOrderGroups < Window_Command
   end
 
   def make_command_list
-    # Pinned first, irrespective of alphabetical order, and only at the top
-    # (unfiltered) level - a reset doesn't belong scoped to one family view.
+    # Pinned first and shown only at the unfiltered top level.
     add_command($framework.txt("menu:commands/reset_order"), :reset, true, nil) unless @filter
 
     groups = $framework.commands.keys.reject { |g| HIDDEN_GROUPS.include?(g) }
@@ -105,8 +103,7 @@ class Scene_CheatMenuOrderGroups < Scene_MenuBase
 
   def start
     super
-    # Only true top-level entry starts a session (family drill-downs and
-    # returning here from a child scene reuse whatever's already running).
+    # Starts a session only on a true top-level entry.
     $framework.ini.start_menu_order_session if @filter.nil? && $framework.menu_order_snapshot.nil?
 
     @command_window = Window_CheatMenuOrderGroups.new
@@ -186,7 +183,7 @@ class Scene_CheatMenuOrderGroups < Scene_MenuBase
     return_scene
   end
 
-  # Distinct breadcrumb key for the unfiltered list vs. each family sub-view.
+  # Breadcrumb key: one for the unfiltered list, one per family view.
   def menu_key
     @filter ? :"edit_menu_order_family_#{@filter}" : :edit_menu_order
   end
@@ -280,7 +277,7 @@ class Scene_CheatMenuOrderEdit < Scene_MenuBase
     return_scene
   end
 
-  # Distinct breadcrumb key per group (this scene class is reused for all of them).
+  # Breadcrumb key per group.
   def menu_key
     :"edit_menu_order_#{@group}"
   end
@@ -295,8 +292,7 @@ class Window_CheatHotkeyList < Window_Command
 
   MAIN_MENU_KEY = "MENU.Main Menu"
 
-  # F1/F12/F10 excluded (blocked/reserved); F5/F6 excluded (RolePlay-S
-  # QuickSave/QuickLoad while active). M is a free letter key, not an F-key.
+  # F-keys available for the Main Menu hotkey (F1/F10/F12 reserved, F5/F6 used by RolePlay-S), plus M.
   MAIN_MENU_CANDIDATES = %w[F2 F3 F4 F7 F8 F9 F11 M]
 
   def initialize
@@ -306,8 +302,7 @@ class Window_CheatHotkeyList < Window_Command
   end
 
   def make_command_list
-    # Pinned first, always. Not a plain :ok row like the rest - see
-    # toggle_main_menu_edit for why changing this one is a bigger deal.
+    # Pinned first; rebinding the Main Menu key is handled by toggle_main_menu_edit.
     add_command(main_menu_label, :locked, true, MAIN_MENU_KEY)
 
     $framework.hotkey_defs.each do |full_key, data|
@@ -394,7 +389,7 @@ class Window_CheatHotkeyList < Window_Command
     new_key = MAIN_MENU_CANDIDATES[@pending_index]
     @editing_main_menu = false
 
-    # Single source of truth, shared with the vanilla Key Binds menu.
+    # Saves the new key to the game's Key Binds settings.
     $framework.ini.apply_menu_toggle_key(new_key)
 
     # Wipe any cheat hotkey already sitting on the new base key (any modifier).
@@ -436,7 +431,7 @@ class Window_CheatHotkeyList < Window_Command
     super unless @editing_main_menu
   end
 
-  # Also locked while editing (reachable via L/R shoulder or mouse wheel).
+  # Blocks page up while editing the Main Menu key (L/R shoulder, mouse wheel).
   def cursor_pageup
     super unless @editing_main_menu
   end
@@ -528,7 +523,7 @@ FrameworkUtils.menu_scenes << Scene_CheatHotkeyList
 # Local/Global override engine (Config > Edit Globals)
 #--------------------------------------------------------------------------
 module FrameworkUtils
-  # force_modes["GROUP.CommandKey"] = true/false, is an override active.
+  # Whether an override is active for this command.
   def self.force_mode_for(group, key)
     $framework.force_modes["#{group}.#{key}"] == true
   end

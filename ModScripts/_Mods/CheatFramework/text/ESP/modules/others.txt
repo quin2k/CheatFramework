@@ -49,9 +49,6 @@ Prevenir el descarte
 command_help/discard1
 Las prendas despojadas de sus prendas van a tu inventario.
 
-commands/unequip
-Quítate la ropa
-
 commands/forceunequip
 Desequipar por fuerza
 
@@ -135,3 +132,27 @@ Violación de compañeros
 
 command_help/companionrape1
 Permite que los compañeros elijan a Lona como objetivo según sus preferencias.
+
+commands/preventsexdeath
+Prevenir Muerte por Sexo
+
+command_help/preventsexdeath1
+Los ataques sexuales de Lona no pueden matar a su objetivo.
+
+commands/stripredress
+Desvestir / Vestir
+
+command_help/stripredress1
+Te quita la ropa. Pulsa de nuevo para volver a ponértela.
+
+command_help/stripredress2
+Solo vuelve a equipar lo que quitó. Se guarda con la partida.
+
+commands/smalltext
+Arreglo de texto pequeño
+
+command_help/smalltext1
+Hace que el texto reducido (apartes, murmullos, etc.) sea más fácil de leer.
+
+command_help/difficultyoverride
+DESACTIVADO usa la dificultad del juego. DURO/INFIERNO actúan como ese modo.

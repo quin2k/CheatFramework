@@ -246,3 +246,33 @@ commands/sexual/reset
 
 command_help/sexual/reset
 处女洛娜。可能会影响性侵犯。
+
+commands/primary/weak
+虛弱
+
+commands/primary/sexy
+性感
+
+commands/primary/attack
+攻擊力
+
+commands/primary/defense
+防禦力
+
+commands/primary/will
+意志力
+
+command_help/primary/bonus
+裝備與狀態之外的加成。存檔中保存。
+
+command_help/primary/will
+裝備與狀態之外的加成。限制性慾與成癮。
+
+command_help/primary/bonus2
+顯示為 (+加成) 數值。更換裝備後加成依然保留。
+
+commands/sexual/atk_bonus
+性愛攻擊加成
+
+command_help/sexual/atk_bonus
+性愛攻擊力的固定加成，忽略上限與傷害。

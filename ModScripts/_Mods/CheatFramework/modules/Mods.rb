@@ -8,7 +8,7 @@ FrameworkModule = {
 # Menu commands for optional companion mods: RolePlay-S, Lona Belly & Booba, Filter Visuals.
 module MenuFramework
   module MENU
-    # MAIN-menu rows don't support hide:, so the whole registration is gated instead.
+    # Registration is gated as a whole, since MAIN-menu rows can't use hide:.
     if $framework.roleplay_mod? || $framework.bellybooba_mod? || $framework.filter_visuals_mod?
       register_command(
         type:  :scene,
@@ -106,6 +106,7 @@ module MenuFramework
       { key: :dirt,     order: 130 },
       { key: :wounds,   order: 140 },
       { key: :bleeding, order: 150 },
+      { key: :glasses,  order: 160 },
     ]
 
     FILTER_VISUAL_TOGGLES.each do |cfg|

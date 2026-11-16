@@ -41,7 +41,13 @@ commands/forageglow
 Forage Glow
 
 command_help/forageglow1
-Makes forageable resource nodes easier to spot. 
+Makes forageable resource nodes easier to spot.
+
+commands/smalltext
+Small Text Fix
+
+command_help/smalltext1
+Makes shrunk text (asides, muttering, etc.) easier to read.
 
 commands/discard
 Prevent Discard
@@ -49,8 +55,14 @@ Prevent Discard
 command_help/discard1
 Stripped clothes go to your inventory.
 
-commands/unequip
-Remove Clothes
+commands/stripredress
+Strip / Redress
+
+command_help/stripredress1
+Removes your clothes. Press again to put them back on.
+
+command_help/stripredress2
+Only re-equips what it removed. Saved with your game.
 
 commands/forceunequip
 Force Unequip
@@ -88,6 +100,9 @@ Milk Overflow
 command_help/milkoverflow1
 Override difficulty-based milk overflow/splash events.
 
+command_help/difficultyoverride
+OFF uses the game's difficulty. HARD/HELL act like that mode.
+
 commands/despawnfix
 Item Decay Control
 
@@ -123,6 +138,12 @@ Irresistible
 
 command_help/irresistible1
 Prioritize sexual targeting if stamina <0.
+
+commands/preventsexdeath
+Prevent Sex Death
+
+command_help/preventsexdeath1
+Lona's sex attacks cannot kill their target.
 
 commands/beastfix
 Beast Fix
