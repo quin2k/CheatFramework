@@ -64,6 +64,12 @@ Press Left to decrease, Right to increase.
 command_help/num_edit2
 SHIFT = x10, CTRL = x100.
 
+command_help/num_edit2_reset
+SHIFT = x10, CTRL = x100. C = reset.
+
+command_help/reset_default
+Press C to reset to %s.
+
 command_help/hotkey_capture1
 Shift/Ctrl/Alt + a key to assign, Delete to clear.
 
@@ -83,10 +89,10 @@ commands/set_hotkeys
 View/Clear Hotkeys
 
 command_help/set_hotkeys1
-See currently assigned hotkeys and clear them as desired.
+View assigned hotkeys and clear them.
 
 command_help/set_hotkeys2
-To add a hotkey, go to the command's menu and press C.
+To add one, press C on a command's row.
 
 commands/edit_order
 Edit Menu Order
@@ -101,7 +107,7 @@ commands/reset_order
 Reset Menu Order
 
 command_help/reset_order1
-Clears all custom menu settings back to the framework's defaults.
+Resets all custom menu settings to defaults.
 
 command_help/reset_order2
 Takes effect immediately, no restart needed.
@@ -110,7 +116,7 @@ commands/edit_globals
 Edit Globals
 
 command_help/edit_globals1
-Force local value to behave as global variable (or vise versa).
+Force a local value to act global (or vice versa).
 
 command_help/edit_globals2
 Z to toggle Local/Global or edit current value.

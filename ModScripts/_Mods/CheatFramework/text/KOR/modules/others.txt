@@ -17,28 +17,28 @@ commands/stealth
 그림자에서 수정
 
 command_help/stealth1
-해당 스킬을 보유하고 있다면 액션 키를 눌러도 은신 상태가 해제되지 않습니다.
+스킬이 있으면 액션 키가 은신을 해제하지 않습니다.
 
 commands/fastnap
 빠른 낮잠
 
 command_help/fastnap1
-휴식 중에 Ctrl 키를 누르면 한 턴에 체력이 회복됩니다. 음식/체력 회복 비율은 동일합니다.
+휴식 중 Ctrl: 체력 완전 회복, 음식 소모 동일.
 
 commands/nightvision
 야간 투시경
 
 command_help/nightvision1
-맵의 어두운 부분을 완전히 투명하게 만듭니다. 즉시 적용되며, 재시작이 필요 없습니다.
+맵의 어둠을 없앱니다. 즉시 적용됩니다.
 
 commands/noclip
 노클립
 
 command_help/noclip1
-지형, 벽, NPC를 통과할 수 있습니다. 오버월드의 변화가 멈춥니다.
+벽과 NPC를 통과합니다. 월드 변화가 멈춥니다.
 
 commands/forageglow
-포리지 글로우
+포리지 스파클
 
 command_help/forageglow1
 채집 가능한 자원 노드를 더 쉽게 찾을 수 있도록 해줍니다.
@@ -155,4 +155,4 @@ command_help/smalltext1
 작아진 텍스트(방백, 중얼거림 등)를 더 읽기 쉽게 만듭니다.
 
 command_help/difficultyoverride
-꺼짐: 게임 난이도를 따릅니다. 어려움/지옥: 해당 모드처럼 작동합니다.
+꺼짐: 게임 난이도. 어려움/지옥: 해당 모드로 작동.

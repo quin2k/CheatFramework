@@ -198,19 +198,71 @@ module Action_Window_Defaults
         save_value = @edit_value
       end
 
+    run_value_action(record, save_value)
+    clear_edit
+  end
+
+  # Passes a value to an edit row's action.
+  def run_value_action(record, value)
     if record[:action].arity == 1
       #Handle Value (v) entry.
-      record[:action].call(save_value)
+      record[:action].call(value)
     elsif record[:action].arity == 2
       #Handle Key/Value pair - mostly for saving to config.
-      record[:action].call(record[:key],save_value)
+      record[:action].call(record[:key],value)
     else
       #Run the command as-is if nothing required.
       instance_exec(&record[:action])
     end
     FrameworkUtils.mark_restart_needed(record)
     SndLib.sys_ok
-    clear_edit
+  end
+
+  # The row's default value, or nil when it has none.
+  def row_default(record)
+    d = record && record[:default]
+    d.is_a?(Proc) ? d.call : d
+  end
+
+  # The default as the row would show it, or nil when it has none.
+  def default_text(record)
+    d = row_default(record)
+    return nil if d.nil?
+    if record[:type] == :edit_list
+      item = (record[:list] || []).find { |i| i[:key] == d }
+      item ? item[:label] : d.to_s
+    else
+      record[:display] ? (record[:display].call(d) rescue d.to_s) : d.to_s
+    end
+  end
+
+  # C on an edit row while browsing: saves the default.
+  def apply_default
+    record = @dictionary && @dictionary[current_ext]
+    return false unless record && [:edit_num, :edit_list].include?(record[:type]) && command_enabled?(index)
+    d = row_default(record)
+    return false if d.nil?
+    run_value_action(record, d)
+    refresh
+    refresh_help_window
+    true
+  end
+
+  # C while editing: moves the pending value to the default.
+  def reset_edit_to_default
+    d = row_default(@dictionary[@editing_this])
+    return SndLib.sys_buzzer if d.nil?
+    if @editing_number
+      @edit_value = [[d, @edit_min].max, @edit_max].min
+    else
+      idx = @edit_list.index { |i| i[:key] == d }
+      return SndLib.sys_buzzer unless idx
+      @edit_index = idx
+      @edit_value = @edit_list[idx][:label]
+    end
+    SndLib.play_cursor
+    refresh
+    refresh_help_window if live_help_command?
   end
 
 
@@ -352,10 +404,12 @@ module Action_Window_Defaults
 
     if @hotkey_capture_mode
       update_hotkey_capture
-    elsif !@editing && current_ext && Input.trigger?(:LETTER_C)
-      if capturable_row?
+    elsif current_ext && Input.trigger?(:LETTER_C)
+      if @editing
+        reset_edit_to_default
+      elsif capturable_row?
         enter_hotkey_capture
-      else
+      elsif !apply_default
         SndLib.sys_buzzer
       end
     end
@@ -588,6 +642,8 @@ module Scene_Defaults
       cmd = @action_window.current_ext
       dict = @action_window.instance_variable_get(:@dictionary) rescue nil
       record = dict ? dict[cmd] : nil
+      default_value = @action_window.respond_to?(:default_text) ? @action_window.default_text(record) : nil
+      default_hint = default_value ? sprintf($framework.txt("menu:command_help/reset_default"), default_value) : nil
 
       # Build help text
       help_lines = []
@@ -620,10 +676,10 @@ module Scene_Defaults
             help4 = $framework.txt("menu:command_help/hotkey_capture2")
           elsif @action_window && @action_window.instance_variable_get(:@editing_number)
             help3 = $framework.txt("menu:command_help/num_edit1")
-            help4 = $framework.txt("menu:command_help/num_edit2")
+            help4 = $framework.txt(default_hint ? "menu:command_help/num_edit2_reset" : "menu:command_help/num_edit2")
           elsif @action_window && @action_window.instance_variable_get(:@editing)
-            help3 = ""
-            help4 = $framework.txt("menu:command_help/num_edit1")
+            help3 = default_hint ? $framework.txt("menu:command_help/num_edit1") : ""
+            help4 = default_hint || $framework.txt("menu:command_help/num_edit1")
           else
             type = record && record[:type]
             case type
@@ -634,8 +690,8 @@ module Scene_Defaults
             else help3 = ""
             end
             # Only :action/:toggle/:scene rows can carry a hotkey (Action_Window_Defaults::CAPTURABLE_TYPES);
-            # :edit_num/:edit_list get no hint since pressing C there just buzzes.
-            help4 = [:action, :scene, :toggle].include?(type) ? $framework.txt("menu:command_help/set_hotkey_hint") : ""
+            # :edit_num/:edit_list show the C reset hint when they have a default.
+            help4 = [:action, :scene, :toggle].include?(type) ? $framework.txt("menu:command_help/set_hotkey_hint") : (default_hint || "")
           end
         end
       end

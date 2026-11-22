@@ -23,22 +23,22 @@ commands/fastnap
 Fast Nap
 
 command_help/fastnap1
-Hold Ctrl while resting to restore stamina in one round. Same food/stamina ratio.
+Hold Ctrl when resting: full stamina, same food cost.
 
 commands/nightvision
 Night Vision
 
 command_help/nightvision1
-Forces map darkness fully transparent. Applies instantly, no restart needed.
+Removes map darkness. Applies instantly.
 
 commands/noclip
 Noclip
 
 command_help/noclip1
-Walk through terrain, walls, and NPCs. Freezes overworld changes.
+Walk through walls and NPCs. Pauses world changes.
 
 commands/forageglow
-Forage Glow
+Forage Sparkle
 
 command_help/forageglow1
 Makes forageable resource nodes easier to spot.
@@ -47,7 +47,7 @@ commands/smalltext
 Small Text Fix
 
 command_help/smalltext1
-Makes shrunk text (asides, muttering, etc.) easier to read.
+Keeps shrunk text (asides, muttering) readable.
 
 commands/discard
 Prevent Discard
@@ -59,10 +59,10 @@ commands/stripredress
 Strip / Redress
 
 command_help/stripredress1
-Removes your clothes. Press again to put them back on.
+Removes clothes. Press again to put them back on.
 
 command_help/stripredress2
-Only re-equips what it removed. Saved with your game.
+Only re-equips what it removed. Saved per game.
 
 commands/forceunequip
 Force Unequip
@@ -92,16 +92,16 @@ commands/addictioneffects
 Addiction Effects
 
 command_help/addictioneffects1
-Override Ograsm/Semen/Drug addiction events.
+Override Orgasm/Semen/Drug addiction events.
 
 commands/milkoverflow
 Milk Overflow
 
 command_help/milkoverflow1
-Override difficulty-based milk overflow/splash events.
+Overrides difficulty-based milk overflow events.
 
 command_help/difficultyoverride
-OFF uses the game's difficulty. HARD/HELL act like that mode.
+OFF = game difficulty. HARD/HELL act as that mode.
 
 commands/despawnfix
 Item Decay Control
@@ -125,7 +125,7 @@ commands/endlesscontracts
 Endless Contracts
 
 command_help/endlesscontracts1
-Recruited companions/followers contracts never expire.
+Companion and follower contracts never expire.
 
 commands/immortal
 Prevent Death
@@ -155,4 +155,4 @@ commands/companionrape
 Companion Rape
 
 command_help/companionrape1
-Allows companions to target Lona based on their preferences.
+Lets companions target Lona by their preferences.

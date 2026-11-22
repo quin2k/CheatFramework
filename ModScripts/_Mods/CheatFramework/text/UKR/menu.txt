@@ -138,3 +138,9 @@ command_help/reset_all_settings2
 
 commands/cheat_menu_keybind
 Відкрити меню читів
+
+command_help/num_edit2_reset
+SHIFT = x10, CTRL = x100. C = скидання.
+
+command_help/reset_default
+Натисніть C, щоб скинути до %s.

@@ -276,3 +276,6 @@ commands/sexual/atk_bonus
 
 command_help/sexual/atk_bonus
 性愛攻擊力的固定加成，忽略上限與傷害。
+
+commands/primary/wisdom
+智慧

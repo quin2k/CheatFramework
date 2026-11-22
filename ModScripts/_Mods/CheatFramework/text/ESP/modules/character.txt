@@ -20,7 +20,7 @@ commands/primary/morality
 Moralidad
 
 command_help/moral
-Una moralidad inferior a 30 provocará ataques humanos.
+Moralidad <30 hará que los humanos ataquen.
 
 commands/levels
 Niveles y rasgos
@@ -38,7 +38,7 @@ commands/levels/exp_rate
 Tasa de Exp
 
 command_help/exp_rate1
-Multiplica la experiencia obtenida de todas las fuentes.
+Multiplica la experiencia de todas las fuentes.
 
 commands/levels/traits_per_level
 Rasgos por nivel
@@ -86,10 +86,10 @@ commands/traits/reset
 Restablecer rasgos
 
 command_help/reset1
-Restablece todos los rasgos (incluidas las habilidades).
+Restablece todos los rasgos (y habilidades).
 
 command_help/reset2
-Establece puntos de rasgos según el nivel * Rasgos por nivel.
+Puntos de rasgo = Nivel * Rasgos por nivel.
 
 commands/appearance
 Apariencia
@@ -119,10 +119,10 @@ commands/appearance/apubegrowth
 Crecimiento del vello anal
 
 command_help/pubes1
-Si se establece en 0, se impedirá el crecimiento; si es igual o superior a 1, se habilitará el crecimiento.
+0 impide el crecimiento, 1+ lo activa.
 
 command_help/pubegrowth1
-Tiempo entre crecimientos. Cuanto mayor sea el tiempo, más lento será el crecimiento.
+Tiempo entre crecimientos. Mayor = más lento.
 
 command_help/pubegrowth2
 Normalmente entre 3 y 12 días.
@@ -152,13 +152,13 @@ toggle/autobandage
 Autovenda
 
 command_help/autobandage
-Elimina automáticamente heridas, sangre y daños en orificios.
+Quita heridas, sangre y daño en orificios.
 
 toggle/autoclean
 Limpieza automática (fuera)
 
 command_help/autoclean
-Elimina automáticamente la sangre y el semen (tanto de entrada como de salida).
+Quita sangre y semen (dentro y fuera).
 
 toggle/autocure
 Autocurado
@@ -206,13 +206,13 @@ commands/deeponecommunicate
 Deepone puede comunicarse
 
 command_help/deeponecommunicate1
-Elimina las comprobaciones codificadas que impiden que True Deepone interactúe con el sistema.
+True Deepone usa interacciones bloqueadas.
 
 commands/abomskillfix
 Abominación Comer Arreglar
 
 command_help/abomskillfix1
-La habilidad Profanar también repondrá la comida y curará las heridas.
+Profanar también repone comida y cura heridas.
 
 commands/siren
 Invocar a Deepone Max
@@ -266,13 +266,16 @@ command_help/primary/bonus
 Bono sobre equipo y estados. Se guarda por partida.
 
 command_help/primary/will
-Bono sobre equipo y estados. Limita la excitación y la adicción.
+Bono sobre equipo/estados. Limita deseo y adicción.
 
 command_help/primary/bonus2
-Se muestra como (+Bono) Valor. El bono se mantiene al cambiar de equipo.
+Se ve como (+Bono) Valor. No cambia con el equipo.
 
 commands/sexual/atk_bonus
 Bono de Ataque Sexual
 
 command_help/sexual/atk_bonus
-Bono fijo al ataque sexual. Ignora los límites y el daño.
+Bono fijo al ataque sexual. Ignora límites y daño.
+
+commands/primary/wisdom
+Sabiduría

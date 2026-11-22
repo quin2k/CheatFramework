@@ -23,7 +23,7 @@ commands/fastnap
 快速小睡
 
 command_help/fastnap1
-休息时按住Ctrl键，即可在一回合内恢复体力。食物/体力比例不变。
+休息时按住Ctrl：体力回满，食物消耗不变。
 
 commands/nightvision
 夜视
@@ -38,7 +38,7 @@ command_help/noclip1
 可以穿过地形、墙壁和NPC。冻结世界地图上的变化。
 
 commands/forageglow
-觅食之光
+觅食闪光
 
 command_help/forageglow1
 使可采集资源节点更容易被发现。
@@ -77,7 +77,7 @@ commands/addictioneffects
 成瘾效应
 
 command_help/addictioneffects1
-覆盖 Ograsm/精液/药物成瘾事件。
+覆盖性高潮/精液/药物成瘾事件。
 
 commands/milkoverflow
 牛奶溢出

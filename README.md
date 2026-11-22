@@ -9,7 +9,7 @@
 ## Install Instructions
  - Put the CheatFramework folder into LonaRPG\ModScripts\_Mods.
    - When unzipping, don't use "Extract to CheatFramework v...\". That creates a nested folder and the mod won't load.
-     - WRONG: `LonaRPG\ModScripts\_Mods\CheatFramework v1.4q\CheatFramework\`
+     - WRONG: `LonaRPG\ModScripts\_Mods\CheatFramework v1.5q\CheatFramework\`
      - CORRECT: `LonaRPG\ModScripts\_Mods\CheatFramework\`
    - Inside the CheatFramework folder you should see `__init__.rb`, `_ModInfo.json`, `preview.png` and folders like `modules` and `text`, not another CheatFramework folder.
  - Once in place, open the MODS menu from within LonaRPG (right above EXIT).
@@ -120,7 +120,7 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
 - Game Tweaks
   - Night Vision
   - Noclip
-  - Forage Glow
+  - Forage Sparkle
   - Small Text Fix
   - Equip Anything
   - Fast Nap
@@ -128,6 +128,7 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
   - From The Shadows Fix
   - Difficulty Achievement Fix
 - NPC Tweaks
+  - Character Cheats
   - Friendly Fire Fix
   - Endless Contracts
   - Prevent Death
@@ -176,6 +177,7 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
 
 - Currently in need of proper translation for default languages. I didn't want to publish something I couldn't test, so I did not include custom languages from the original.
   - Any native speakers should contact me ASAP with fixes!
+- Cocona can still target a collapsed Lona with Companion Rape on (likely combined with Irresistible).
 - Should be loaded after RolePlay-S. It's minor - local-turned-global variables won't write until you save-and-load the first time.
 
 ## Planned Improvements
@@ -349,7 +351,7 @@ This started out as "I'd like to be able to edit variables" and when I realized 
 - Added "Noclip" cheat. Walk through terrain, walls, and NPCs - also freezes overworld changes.
 - Added "Forage Glow" cheat that will highlight spawned items in the wild.
 - Added Difficulty-related 'features' similar to Pregnency Difficulty:
-  - Added "Addiction Effects" cheat (Off/Hard/Hell) to unlock (or lock) Ograsm/Semen/Drug addiction overevents.
+  - Added "Addiction Effects" cheat (Off/Hard/Hell) to unlock (or lock) Orgasm/Semen/Drug addiction overevents.
   - Added "Milk Overflow" cheat (Off/Hard/Hell) to unlock (or lock) milk overflow/splash overevent.
 - Added some additional Companion Cheats
   - "Prevent Death" - Locks Companion and Lona HP to >1. Companions will not fall below 0 stamina.
@@ -422,6 +424,19 @@ This started out as "I'd like to be able to edit variables" and when I realized 
   - Thanks to [OliverMat](https://raidgame.ru/members/31883/) for the report.
 - "Addiction Effects" and "Milk Overflow" now match "Pregnancy Difficulty": Off leaves the game alone, Hard/Hell act like that mode.
 - "Reset Game Difficulty" now drops Doom to Hell instead of Hard.
+
+</details>
+<details>
+<summary>Ver 1.5q Changelog</summary>
+
+- Added Character-specific cheats to NPC Tweaks for Lona-style companions (currently Cocona). Each has vitals, primary stats, Infinite Health/Stamina/Food, Disable Dirt, Heal, Heal a Wound and a State Editor. New characters of this kind should be picked up automatically.
+- Stat bonuses can now go past stat limits, so they still apply when something else (like the True Deepone transformation) shifts the stat.
+- Press C on a number or list edit to reset it to its default.
+- "Equip Anything" now also lifts RolePlay-S stat requirements and the Necromancer mod's staff/book restrictions.
+- State Editor no longer lists Death, Stun and Slow states.
+- Shortened help text that wrapped and pushed the last help line out of view (English, Spanish, Korean, Chinese).
+- "Forage Glow" is now "Forage Sparkle": wild resource nodes (plants, trees, minerals, rocks, fishing spots, rag piles, animal carcasses) give off small sparkles.
+- Companion Rape: Additional fixes to preven Cocona spamming shield.
 
 </details>
 

@@ -138,3 +138,9 @@ command_help/reset_all_settings2
 
 commands/cheat_menu_keybind
 打开作弊菜单
+
+command_help/num_edit2_reset
+SHIFT = x10，CTRL = x100。C = 重設。
+
+command_help/reset_default
+按 C 重設為 %s。

@@ -29,4 +29,4 @@ toggle/vulnerable
 Lona Vulnerable
 
 command_help/vulnerable1
-Caps Lona's stamina at 0 until she faints or you toggle this off.
+Caps stamina at 0 until Lona faints or this is off.

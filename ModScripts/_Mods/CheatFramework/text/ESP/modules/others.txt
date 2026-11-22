@@ -11,43 +11,43 @@ commands/achievementfix
 Solución para el problema de dificultad
 
 command_help/achievementfix1
-Se otorgan puntos por dificultades más fáciles, si corresponde.
+Da crédito por dificultades más fáciles si aplica.
 
 commands/stealth
 Desde las sombras
 
 command_help/stealth1
-La tecla de acción no cancelará el sigilo si tienes la habilidad.
+Con la habilidad, la acción no cancela el sigilo.
 
 commands/fastnap
 Siesta rápida
 
 command_help/fastnap1
-Mantén pulsada la tecla Ctrl mientras descansas para recuperar resistencia en una ronda. La proporción de comida/resistencia es la misma.
+Ctrl al descansar: resistencia llena, mismo coste.
 
 commands/nightvision
 Visión nocturna
 
 command_help/nightvision1
-Fuerzas que hacen que la oscuridad del mapa sea totalmente transparente. Se aplica al instante, no es necesario reiniciar.
+Quita la oscuridad del mapa. Se aplica al instante.
 
 commands/noclip
 Noclip
 
 command_help/noclip1
-Atraviesa terrenos, paredes y PNJ. Congela los cambios en el mundo exterior.
+Atraviesa paredes y PNJ. Pausa el mundo.
 
 commands/forageglow
-Resplandor de forraje
+Destello de forraje
 
 command_help/forageglow1
-Facilita la localización de los nodos de recursos recolectables.
+Facilita ver los nodos de recursos recolectables.
 
 commands/discard
 Prevenir el descarte
 
 command_help/discard1
-Las prendas despojadas de sus prendas van a tu inventario.
+La ropa quitada va a tu inventario.
 
 commands/forceunequip
 Desequipar por fuerza
@@ -83,7 +83,7 @@ commands/milkoverflow
 Desbordamiento de leche
 
 command_help/milkoverflow1
-Anular los eventos de desbordamiento/salpicaduras de leche basados ​​en la dificultad.
+Anula los eventos de leche según la dificultad.
 
 commands/despawnfix
 Control de deterioro de artículos
@@ -107,13 +107,13 @@ commands/endlesscontracts
 Contratos sin fin
 
 command_help/endlesscontracts1
-Los contratos de los compañeros/seguidores reclutados nunca caducan.
+Los contratos de compañeros nunca caducan.
 
 commands/immortal
 Prevenir la muerte
 
 command_help/immortal1
-Los compañeros y Lona no pueden bajar de 1 punto de vida.
+Compañeros y Lona no bajan de 1 PV.
 
 commands/irresistible
 Irresistible
@@ -125,34 +125,34 @@ commands/beastfix
 Arreglo de bestias
 
 command_help/beastfix1
-Permite que algunos animales bloqueados puedan fornicar.
+Permite fornicar a algunos animales bloqueados.
 
 commands/companionrape
 Violación de compañeros
 
 command_help/companionrape1
-Permite que los compañeros elijan a Lona como objetivo según sus preferencias.
+Los compañeros eligen a Lona según sus gustos.
 
 commands/preventsexdeath
 Prevenir Muerte por Sexo
 
 command_help/preventsexdeath1
-Los ataques sexuales de Lona no pueden matar a su objetivo.
+Los ataques sexuales de Lona no matan al objetivo.
 
 commands/stripredress
 Desvestir / Vestir
 
 command_help/stripredress1
-Te quita la ropa. Pulsa de nuevo para volver a ponértela.
+Quita la ropa. Pulsa otra vez para ponerla.
 
 command_help/stripredress2
-Solo vuelve a equipar lo que quitó. Se guarda con la partida.
+Solo reequipa lo que quitó. Se guarda por partida.
 
 commands/smalltext
 Arreglo de texto pequeño
 
 command_help/smalltext1
-Hace que el texto reducido (apartes, murmullos, etc.) sea más fácil de leer.
+Hace legible el texto reducido (apartes, murmullos).
 
 command_help/difficultyoverride
-DESACTIVADO usa la dificultad del juego. DURO/INFIERNO actúan como ese modo.
+DESACTIVADO = juego. DURO/INFIERNO = ese modo.

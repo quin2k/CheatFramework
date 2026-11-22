@@ -276,3 +276,6 @@ commands/sexual/atk_bonus
 
 command_help/sexual/atk_bonus
 Прямой бонус к сексуальной атаке. Игнорирует ограничения и повреждения.
+
+commands/primary/wisdom
+Мудрость

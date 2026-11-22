@@ -41,7 +41,7 @@ cheat_toggle/infinite
 INF
 
 command_help/fixcommand2
-Requiere reiniciar. Deshabilitar desactiva esta corrección.
+Requiere reinicio. Desactivar quita este arreglo.
 
 command_help/execute
 Pulsa Z para ejecutar el comando.
@@ -65,7 +65,7 @@ command_help/num_edit2
 SHIFT = x10, CTRL = x100.
 
 command_help/hotkey_capture1
-Mayús/Ctrl/Alt + una tecla para asignar, Suprimir para borrar.
+Mayús/Ctrl/Alt + tecla: asignar. Supr: borrar.
 
 command_help/hotkey_capture2
 C o X para cancelar.
@@ -83,10 +83,10 @@ commands/set_hotkeys
 Ver/Borrar teclas de acceso rápido
 
 command_help/set_hotkeys1
-Consulta las teclas de acceso rápido asignadas actualmente y elimínalas si lo deseas.
+Ver las teclas rápidas asignadas y borrarlas.
 
 command_help/set_hotkeys2
-Para añadir una tecla de acceso rápido, ve al menú del comando y pulsa la tecla C.
+Para añadir una, pulsa C sobre un comando.
 
 commands/edit_order
 Editar pedido del menú
@@ -101,19 +101,19 @@ commands/reset_order
 Restablecer orden del menú
 
 command_help/reset_order1
-Restablece todas las configuraciones de menú personalizadas a los valores predeterminados del framework.
+Restablece los ajustes de menú por defecto.
 
 command_help/reset_order2
-Surte efecto inmediatamente, no es necesario reiniciar.
+Se aplica al instante, sin reiniciar.
 
 commands/edit_globals
 Editar variables globales
 
 command_help/edit_globals1
-Obligar a que un valor local se comporte como una variable global (o viceversa).
+Hace que un valor local actúe global (o al revés).
 
 command_help/edit_globals2
-Pulsa Z para alternar entre local y global o para editar el valor actual.
+Z: alternar Local/Global o editar el valor.
 
 command_help/local
 No es global (se puede cambiar en la configuración).
@@ -131,10 +131,16 @@ commands/reset_all_settings
 Restablecer configuración
 
 command_help/reset_all_settings1
-Restablecer teclas de acceso rápido, orden del menú y anulaciones.
+Restablece atajos, orden del menú y anulaciones.
 
 command_help/reset_all_settings2
-Los valores predeterminados del módulo/truco requieren un reinicio.
+Los valores por defecto requieren reiniciar.
 
 commands/cheat_menu_keybind
 Abrir menú de trucos
+
+command_help/num_edit2_reset
+SHIFT = x10, CTRL = x100. C = restablecer.
+
+command_help/reset_default
+Pulsa C para restablecer a %s.
