@@ -76,7 +76,7 @@ module MenuFramework
     end
 
     # Save-local bonuses, added on top of the values recalculate_stats rebuilds.
-    # weak/sexy keep current synced to max and are rebuilt in refresh (same as Lona); the rest in recalculate_stats.
+    # weak/sexy are rebuilt in refresh, like Lona; the rest in recalculate_stats.
     REFRESH_BONUS_STATS = ["weak", "sexy"]
     RECALC_BONUS_STATS  = ["atk", "def", "wisdom"]
 

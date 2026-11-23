@@ -175,9 +175,7 @@ Conflict Resolution: If the RolePlay-S mod is active, quick-save/load will overr
 
 ## Known Issues
 
-- Currently in need of proper translation for default languages. I didn't want to publish something I couldn't test, so I did not include custom languages from the original.
-  - Any native speakers should contact me ASAP with fixes!
-- Cocona can still target a collapsed Lona with Companion Rape on (likely combined with Irresistible).
+- Non-English text is machine translated (Russian has had human fixes). Native speakers: corrections are always welcome!
 - Should be loaded after RolePlay-S. It's minor - local-turned-global variables won't write until you save-and-load the first time.
 
 ## Planned Improvements
@@ -430,13 +428,13 @@ This started out as "I'd like to be able to edit variables" and when I realized 
 <summary>Ver 1.5q Changelog</summary>
 
 - Added Character-specific cheats to NPC Tweaks for Lona-style companions (currently Cocona). Each has vitals, primary stats, Infinite Health/Stamina/Food, Disable Dirt, Heal, Heal a Wound and a State Editor. New characters of this kind should be picked up automatically.
-- Stat bonuses can now go past stat limits, so they still apply when something else (like the True Deepone transformation) shifts the stat.
-- Press C on a number or list edit to reset it to its default.
+- Stat bonuses can now go past stat limits, so they still apply when something else (like injuries, True Deepone transformation) shifts the stat.
+  - Press C on a number or list edit to reset it to its default.
 - "Equip Anything" now also lifts RolePlay-S stat requirements and the Necromancer mod's staff/book restrictions.
-- State Editor no longer lists Death, Stun and Slow states.
-- Shortened help text that wrapped and pushed the last help line out of view (English, Spanish, Korean, Chinese).
+- State Editor no longer lists Death, Stun and Slow states (the unnamed nil/nil ones).
+- Shortened help text that wrapped and pushed the last help line out of view (English, Spanish, Korean, Chinese, Russian, Ukrainian).
 - "Forage Glow" is now "Forage Sparkle": wild resource nodes (plants, trees, minerals, rocks, fishing spots, rag piles, animal carcasses) give off small sparkles.
-- Companion Rape: Additional fixes to preven Cocona spamming shield.
+- Companion Rape: Additional fixes to prevent Cocona spamming shield.
 
 </details>
 
