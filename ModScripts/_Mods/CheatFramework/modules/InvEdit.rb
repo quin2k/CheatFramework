@@ -237,9 +237,21 @@ class Window_CheatMenuStatus < Window_Command
   def make_command_list
     $data_StateName.each_pair do |k, v|
       if v != nil and k != nil
-        add_command("", :drawStat, true, [k, v]) if !(v.name == "" or v.name == "nil" or v.name == "DataState:nil/name" or v.description == "" or v.description == "nil" or v.description == "DataState:nil/description")
+        add_command("", :drawStat, true, [k, v]) if !(v.name == "" or v.name == "nil" or v.name == "DataState:nil/name" or v.description == "" or v.description == "nil" or v.description == "DataState:nil/description") && status_allowed?(k)
       end
     end
+  end
+
+  # Actor whose states are listed and edited.
+  def status_actor
+    $game_player.actor
+  end
+
+  # States hidden from the editor.
+  HIDDEN_STATES = /\A(Death|Stun\d+|Slow\d+)\z/
+
+  def status_allowed?(state_name)
+    state_name !~ HIDDEN_STATES
   end
 
   def drawStat
@@ -251,7 +263,7 @@ class Window_CheatMenuStatus < Window_Command
     rect = item_rect_for_text(index)
     item = @list[index][:ext][1]
     name = @list[index][:ext][0]
-    stack = $game_player.actor.state_stack(name)
+    stack = status_actor.state_stack(name)
     change_color(normal_color, stack)
     draw_icon(item.icon_index, rect.x, rect.y, stack)
     rect.x += 24
@@ -267,14 +279,14 @@ class Window_CheatMenuStatus < Window_Command
 
   def cursor_right(wrap = false)
     SndLib.play_cursor
-    $game_player.actor.add_state(current_ext[0])
+    status_actor.add_state(current_ext[0])
     draw_item(index)
   end
 
   def cursor_left(wrap = false)
     SndLib.play_cursor
-    $game_player.actor.remove_one_state(current_ext[0])
-    $game_player.actor.update_state_portrait_stat(current_ext[0])
+    status_actor.remove_one_state(current_ext[0])
+    status_actor.update_state_portrait_stat(current_ext[0])
     draw_item(index)
   end
 

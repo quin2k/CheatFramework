@@ -59,7 +59,7 @@ command_help/seedbed
 로나의 상태를 직접 조정합니다.
 
 command_help/protect
-아기의 건강 상태를 최대로 유지하고 '정리' 기능을 비활성화합니다.
+아기 건강을 최대로 유지, '정리' 비활성화.
 
 command_help/length1
 임신 기간을 수정하려면 선택하세요.

@@ -41,7 +41,7 @@ cheat_toggle/infinite
 БЕСКОНЕЧ
 
 command_help/fixcommand2
-Требуется перезапуск. Отключение этой функции выгружает данное исправление.
+Требуется перезапуск. Выкл. выгружает фикс.
 
 command_help/execute
 Нажмите Z, чтобы выполнить команду.
@@ -59,7 +59,7 @@ command_help/set_hotkey_hint
 Нажмите клавишу C, чтобы назначить горячую клавишу.
 
 command_help/num_edit1
-Нажимаем стрелку влево или вправо для настройки.
+Стрелка влево/вправо — настройка значения.
 
 command_help/num_edit2
 SHIFT = x10, CTRL = x100.
@@ -138,3 +138,9 @@ command_help/reset_all_settings2
 
 commands/cheat_menu_keybind
 Открыть меню читов
+
+command_help/num_edit2_reset
+SHIFT = x10, CTRL = x100. C = сброс.
+
+command_help/reset_default
+Нажмите C для сброса на %s.

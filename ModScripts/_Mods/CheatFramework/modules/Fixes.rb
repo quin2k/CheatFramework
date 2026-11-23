@@ -200,6 +200,41 @@ if $cheat_classless_society >= 0
       cf_classless_society_equip_change_ok(slot_id)
     end
   end
+
+  # Lifts other mods' equip rules (RolePlay-S stat requirements, Necromancer's Call of Darkness).
+  # Patched after every mod has loaded, so load order doesn't matter.
+  if DataManager.respond_to?(:load_mod_database)
+    module DataManager
+      class << self
+        alias_method :cf_classless_society_load_mod_database, :load_mod_database
+        def load_mod_database
+          cf_classless_society_load_mod_database
+          cf_classless_society_patch_mods
+        end
+
+        def cf_classless_society_patch_mods
+          if Game_BattlerBase.method_defined?(:item_required_calc) && !Game_BattlerBase.method_defined?(:cf_classless_society_item_required_calc)
+            Game_BattlerBase.class_eval do
+              alias_method :cf_classless_society_item_required_calc, :item_required_calc
+              def item_required_calc(item)
+                return true if $cheat_classless_society == 1
+                cf_classless_society_item_required_calc(item)
+              end
+            end
+          end
+          if respond_to?(:necro_dark_call_bans?) && !respond_to?(:cf_classless_society_necro_dark_call_bans?)
+            singleton_class.class_eval do
+              alias_method :cf_classless_society_necro_dark_call_bans?, :necro_dark_call_bans?
+              def necro_dark_call_bans?(battler, item)
+                return false if $cheat_classless_society == 1
+                cf_classless_society_necro_dark_call_bans?(battler, item)
+              end
+            end
+          end
+        end
+      end
+    end
+  end
 end
 
 #--------------------------------------------------------------------------
@@ -295,32 +330,108 @@ class Game_Player
 end
 
 #--------------------------------------------------------------------------
-# Forage Glow
+# Forage Sparkle
 #--------------------------------------------------------------------------
-# "Static*"-named events are the overworld forage nodes - tag them once (draw priority + blink),
-# each starting on a random phase so a cluster doesn't blink in sync.
 class Game_Event
-  alias_method :cf_forage_glow_refresh, :refresh
-  def refresh
-    cf_forage_glow_refresh
-    return if @cheat_forage_glow_checked
-    @cheat_forage_glow_checked = true
-    return unless $cheat_forage_glow
-    return unless @event && @event.name.start_with?("Static")
-    self.priority_type = 2
-    @cheat_forage_glow_tagged = true
-    @cheat_forage_glow_frame = rand(80)
+  CF_SPARKLE_NODES = /\AStatic(Herb|Onion|Carrot|Potato|Tomato|Grapes|BlueBerry|Mushroom|Humpshroom|AppleTree|NutsTree|BananaTree|ArecaNut|Phosphorus|Saltpeter|Rock(Crab|Insect)\d|Fish|ShLantern|ItemRag|Cropse(WildBoar|Dog|Horse))/
+
+  # Wild resource nodes that can be used right now.
+  def cf_sparkle_node?
+    @cf_sparkle_named = !!(@event && @event.name =~ CF_SPARKLE_NODES) if @cf_sparkle_named.nil?
+    @cf_sparkle_named && !@erased && !@deleted && @trigger == 0 && !empty?
   end
 
-  alias_method :cf_forage_glow_update, :update
+  # Counts down to this node's next sparkle; returns true when one is due.
+  def cf_sparkle_due?
+    @cf_sparkle_wait = rand(90) if @cf_sparkle_wait.nil?
+    return false if (@cf_sparkle_wait -= 1) > 0
+    @cf_sparkle_wait = 50 + rand(80)
+    true
+  end
+end
+
+# Draws short-lived sparkles above wild resource nodes; the nodes keep their own layer.
+class Spriteset_Map
+  CF_SPARKLE_LIFE = 36
+
+  # Shared 13x13 four-point star.
+  def self.cf_sparkle_bitmap
+    return @cf_sparkle_bitmap if @cf_sparkle_bitmap && !@cf_sparkle_bitmap.disposed?
+    bmp = Bitmap.new(13, 13)
+    bmp.set_pixel(6, 6, Color.new(255, 255, 255, 255))
+    [245, 210, 165, 115, 65, 25].each_with_index do |a, i|
+      d = i + 1
+      c = Color.new(255, 250, 200, a)
+      bmp.set_pixel(6 + d, 6, c)
+      bmp.set_pixel(6 - d, 6, c)
+      bmp.set_pixel(6, 6 + d, c)
+      bmp.set_pixel(6, 6 - d, c)
+    end
+    [[1, 150], [2, 50]].each do |d, a|
+      c = Color.new(255, 250, 200, a)
+      [[d, d], [-d, d], [d, -d], [-d, -d]].each { |x, y| bmp.set_pixel(6 + x, 6 + y, c) }
+    end
+    @cf_sparkle_bitmap = bmp
+  end
+
+  alias_method :cf_sparkle_update, :update
   def update
-    cf_forage_glow_update
-    return unless @cheat_forage_glow_tagged
-    frame = (@cheat_forage_glow_frame += 1)
-    lit = (frame % 80) < 20
-    return if lit == @cheat_forage_glow_lit
-    @cheat_forage_glow_lit = lit
-    self.tone = lit ? Tone.new(120, 120, 60, 0) : Tone.new(0, 0, 0, 0)
+    cf_sparkle_update
+    cf_sparkle_tick
+  end
+
+  alias_method :cf_sparkle_dispose, :dispose
+  def dispose
+    cf_sparkle_clear
+    cf_sparkle_dispose
+  end
+
+  def cf_sparkle_clear
+    (@cf_sparkles || []).each { |s| s[:sprite].dispose }
+    @cf_sparkles = []
+  end
+
+  def cf_sparkle_tick
+    @cf_sparkles ||= []
+    cf_sparkle_clear if @cf_sparkle_map != $game_map.map_id
+    @cf_sparkle_map = $game_map.map_id
+    cf_sparkle_spawn if $cheat_forage_glow
+    @cf_sparkles.each { |s| cf_sparkle_animate(s) }
+    @cf_sparkles.reject! { |s| s[:sprite].disposed? }
+  end
+
+  # Starts a sparkle on each on-screen node whose timer is up.
+  def cf_sparkle_spawn
+    $game_map.events.each_value do |ev|
+      next unless ev.cf_sparkle_node?
+      x = ev.screen_x
+      y = ev.screen_y
+      next if x < -32 || x > Graphics.width + 32 || y < -32 || y > Graphics.height + 64
+      next unless ev.cf_sparkle_due?
+      sprite = Sprite.new(@viewport1)
+      sprite.bitmap = Spriteset_Map.cf_sparkle_bitmap
+      sprite.ox = 6
+      sprite.oy = 6
+      sprite.z = 3000
+      sprite.blend_type = 1
+      sprite.opacity = 0
+      @cf_sparkles << { :sprite => sprite, :event => ev, :age => 0,
+                        :dx => rand(21) - 10, :dy => -4 - rand(23) }
+    end
+  end
+
+  # Fades and grows a sparkle in, then out, following its node on screen.
+  def cf_sparkle_animate(s)
+    sprite = s[:sprite]
+    ev = s[:event]
+    s[:age] += 1
+    return sprite.dispose if s[:age] > CF_SPARKLE_LIFE || ev.deleted? || ev.erased?
+    wave = Math.sin(Math::PI * s[:age] / CF_SPARKLE_LIFE)
+    sprite.x = ev.screen_x + s[:dx]
+    sprite.y = ev.screen_y + s[:dy]
+    sprite.opacity = (255 * wave).to_i
+    sprite.zoom_x = sprite.zoom_y = 0.5 + 1.0 * wave
+    sprite.angle = s[:age] * 4
   end
 end
 

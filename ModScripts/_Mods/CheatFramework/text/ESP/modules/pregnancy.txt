@@ -59,10 +59,10 @@ command_help/seedbed
 Ajusta directamente el estado de Lona.
 
 command_help/protect
-Mantiene la salud del bebé al máximo y desactiva la opción "Borrar".
+Salud del bebé al máximo, desactiva 'Borrar'.
 
 command_help/length1
-Seleccione esta opción para editar la duración del embarazo.
+Selecciona para editar la duración del embarazo.
 
 command_help/length2
 Zero provocará el embarazo una vez que te mudes.
@@ -71,13 +71,13 @@ command_help/clear1
 Eliminar el embarazo de Lona en silencio.
 
 command_help/clear2
-Si está desactivada, la protección contra el embarazo está activada.
+Si está inactivo, Proteger el embarazo está activo.
 
 commands/suppress_menses
 Suprimir Menstruación
 
 command_help/suppress_menses1
-Oculta las ventanas emergentes y efectos de menstruación y ovulación.
+Oculta avisos y efectos de menstruación/ovulación.
 
 command_help/suppress_menses2
 El ciclo en sí no cambia; la fertilidad no se ve afectada.

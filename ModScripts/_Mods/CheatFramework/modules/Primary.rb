@@ -34,6 +34,7 @@ module MenuFramework
       enable: -> {!$cheat_infinite_health},
       min:    -100,
       max:    999,
+      default: -> { $game_player.actor.battle_stat.get_stat("health", ActorStat::MAX_STAT).to_i },
       action: ->(v) { $game_player.actor.health = v },
       order:  10
       )
@@ -46,6 +47,7 @@ module MenuFramework
       state:  "$game_player.actor.sta.to_i",
       min:    -100,
       max:    200,
+      default: -> { $game_player.actor.battle_stat.get_stat("sta", ActorStat::MAX_STAT).to_i },
       action: ->(v) { $game_player.actor.sta = v },
       order:  20
     )
@@ -58,6 +60,7 @@ module MenuFramework
       state:  "$game_player.actor.sat",
       min:    0,
       max:    200,
+      default: -> { $game_player.actor.battle_stat.get_stat("sat", ActorStat::MAX_STAT).to_i },
       action: ->(v) { $game_player.actor.sat = v },
       order:  30
     )
@@ -110,8 +113,9 @@ module MenuFramework
       state:  "$game_player.actor.weak.round",
       help1:  "modules/character:command_help/primary/bonus",
       help2:  "modules/character:command_help/primary/bonus2",
-      min:    0,
-      max:    1500,
+      min:    -> { FrameworkUtils.stat_base(:weak).round - 1500 },
+      max:    -> { FrameworkUtils.stat_base(:weak).round + 1500 },
+      default: -> { FrameworkUtils.stat_base(:weak).round },
       display: ->(v) { FrameworkUtils.bonus_display(:weak, v) },
       action: ->(v) { FrameworkUtils.set_stat_bonus(:weak, v) },
       order:  70
@@ -124,8 +128,9 @@ module MenuFramework
       state:  "$game_player.actor.sexy.round",
       help1:  "modules/character:command_help/primary/bonus",
       help2:  "modules/character:command_help/primary/bonus2",
-      min:    0,
-      max:    1500,
+      min:    -> { FrameworkUtils.stat_base(:sexy).round - 1500 },
+      max:    -> { FrameworkUtils.stat_base(:sexy).round + 1500 },
+      default: -> { FrameworkUtils.stat_base(:sexy).round },
       display: ->(v) { FrameworkUtils.bonus_display(:sexy, v) },
       action: ->(v) { FrameworkUtils.set_stat_bonus(:sexy, v) },
       order:  80
@@ -139,7 +144,8 @@ module MenuFramework
       help1:  "modules/character:command_help/primary/bonus",
       help2:  "modules/character:command_help/primary/bonus2",
       min:    0,
-      max:    250,
+      max:    -> { FrameworkUtils.stat_base(:atk).round + 250 },
+      default: -> { FrameworkUtils.stat_base(:atk).round },
       display: ->(v) { FrameworkUtils.bonus_display(:atk, v) },
       action: ->(v) { FrameworkUtils.set_stat_bonus(:atk, v) },
       order:  90
@@ -153,7 +159,8 @@ module MenuFramework
       help1:  "modules/character:command_help/primary/bonus",
       help2:  "modules/character:command_help/primary/bonus2",
       min:    0,
-      max:    250,
+      max:    -> { FrameworkUtils.stat_base(:def).round + 250 },
+      default: -> { FrameworkUtils.stat_base(:def).round },
       display: ->(v) { FrameworkUtils.bonus_display(:def, v) },
       action: ->(v) { FrameworkUtils.set_stat_bonus(:def, v) },
       order:  100
@@ -167,7 +174,8 @@ module MenuFramework
       help1:  "modules/character:command_help/primary/will",
       help2:  "modules/character:command_help/primary/bonus2",
       min:    100,
-      max:    5000,
+      max:    -> { FrameworkUtils.stat_base(:will).round + 5000 },
+      default: -> { FrameworkUtils.stat_base(:will).round },
       display: ->(v) { FrameworkUtils.bonus_display(:will, v) },
       action: ->(v) { FrameworkUtils.set_stat_bonus(:will, v) },
       order:  110
@@ -218,10 +226,14 @@ module FrameworkUtils
     end
   end
 
+  # Lona's value without the bonus.
+  def self.stat_base(stat)
+    stat_bases[stat.to_s] || ($game_player.actor.send(stat) - stat_bonus(stat))
+  end
+
   # "(+B) A": the bonus in effect after the stat's floor; plain value when zero.
   def self.bonus_display(stat, value)
-    base = stat_bases[stat.to_s] || ($game_player.actor.send(stat) - stat_bonus(stat))
-    bonus = (value - base).round
+    bonus = (value - stat_base(stat)).round
     bonus == 0 ? value.round.to_s : "(%+d) %d" % [bonus, value.round]
   end
 end

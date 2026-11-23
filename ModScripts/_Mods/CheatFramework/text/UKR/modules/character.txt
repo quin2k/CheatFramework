@@ -44,7 +44,7 @@ commands/levels/traits_per_level
 Черти на рівень
 
 command_help/tpl1
-Кількість рис, отриманих при підвищенні рівня.
+К-сть рис за підвищення рівня.
 
 commands/traits
 Риси
@@ -206,19 +206,19 @@ commands/deeponecommunicate
 Deepone може спілкуватися
 
 command_help/deeponecommunicate1
-Видаляє жорстко запрограмовані перевірки, які блокують взаємодію з True Deepone.
+Відкриває True Deepone закриті дії.
 
 commands/abomskillfix
 Осквернення
 
 command_help/abomskillfix1
-Навик "Осквернение" також буде насищать и лечить раны.
+«Осквернення» також насичує та лікує рани.
 
 commands/siren
 Макс. призыв глубинных
 
 command_help/siren1
-Змінює загальне кол-во можливих викликів Сирен.
+Загальна к-сть викликаних Сирен.
 
 commands/sexual
 Сексуальність
@@ -263,16 +263,19 @@ commands/primary/will
 Воля
 
 command_help/primary/bonus
-Бонус до спорядження та станів. Зберігається в грі.
+Бонус понад спорядження. Зберігається в грі.
 
 command_help/primary/will
-Бонус до спорядження та станів. Обмежує збудження та залежність.
+Бонус. Обмежує збудження та залежність.
 
 command_help/primary/bonus2
-Відображається як (+Бонус) Значення. Бонус зберігається при зміні спорядження.
+Вигляд: (+Бонус) Значення. Не скинеться з одягом.
 
 commands/sexual/atk_bonus
 Бонус до сексуальної атаки
 
 command_help/sexual/atk_bonus
 Прямий бонус до сексуальної атаки. Ігнорує обмеження та пошкодження.
+
+commands/primary/wisdom
+Мудрість

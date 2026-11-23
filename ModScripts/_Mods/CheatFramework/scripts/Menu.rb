@@ -298,6 +298,8 @@ module MenuFramework
         min:    opts[:min],
         max:    opts[:max],
         display: opts[:display],
+        # Value C resets an edit row to; a Proc or a plain value. Falls back to gdef.
+        default: opts.has_key?(:default) ? opts[:default] : opts[:gdef],
         order:  opts[:order] || 999,
         default_order: opts[:order] || 999,
         enable: opts.has_key?(:enable) ? opts[:enable] : true,

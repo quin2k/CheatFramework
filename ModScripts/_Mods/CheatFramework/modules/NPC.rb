@@ -272,9 +272,10 @@ if $cheat_irresistible_companions >= 0
     end
 
     # Forces fucker to true for an incapacitated companion or a 0-stamina Lona, bypassing aggro/stat checks.
+    # NPCs without sex skills keep their normal check.
     alias_method :cf_irresistible_fucker?, :fucker?
     def fucker?(target, friendly)
-      if $cheat_irresistible_companions == 1
+      if $cheat_irresistible_companions == 1 && !@skills_fucker_list.empty?
         return true if cf_incapacitated_companion_target?(target)
         return true if target == $game_player && $game_player.actor.sta <= 0
       end
@@ -391,8 +392,9 @@ if $cheat_companion_rape >= 0
       return if !target.actor
       return process_target_lost if target.deleted? || (!$game_map.events.value?(target) && target != $game_player)
       return process_target_lost if target && target.actor.action_state == :death
+      return cf_companion_rape_drop_target(target) if cf_companion_rape_truce?(target)
       is_friend = friendly?(target)
-      return if is_friend && !fucker?(target, is_friend)
+      return cf_companion_rape_drop_target(target) if is_friend && !cf_companion_rape_fucker?(target)
       process_ai_state(target, distance, signal, sensor_type)
       process_alert_level(target, distance, signal, sensor_type) if non_battle? && @ai_state != :none
       return unless @alert_level == 2
@@ -404,6 +406,55 @@ if $cheat_companion_rape >= 0
       when :flee; process_flee(target, distance, signal, sensor_type)
       else set_alert_level(0) if @fraction_mode == 1 || @fraction_mode == 4 || @fraction_mode == 2
       end
+    end
+
+    # While a companion is in sex with a teammate, everyone else on that teammate gets a truce
+    # that lasts 2 seconds past the end, so they don't fight afterwards.
+    alias_method :cf_companion_rape_update_npc_stat, :update_npc_stat
+    def update_npc_stat
+      cf_companion_rape_update_npc_stat
+      return unless $cheat_companion_rape == 1 && @master == $game_player
+      victim = @fucker_target
+      return unless victim && cf_companion_rape_team?(victim)
+      partners = $game_map.npcs.select { |ev| ev.actor != self && ev.actor.fucker_target == victim }
+      return if partners.empty?
+      @cf_truce_partners = partners
+      @cf_truce_until = Graphics.frame_count + 120
+    end
+
+    # A partner that hits the companion during the truce is fought as normal.
+    def cf_companion_rape_truce?(target)
+      return false unless @cf_truce_until && Graphics.frame_count < @cf_truce_until
+      return false if @aggro_frame != 0 && @target == target
+      @cf_truce_partners.include?(target)
+    end
+
+    # Lona and companions are only targeted while down or already in sex.
+    # Female companions never target female teammates.
+    def cf_companion_rape_fucker?(target)
+      if cf_companion_rape_team?(target)
+        return false unless cf_companion_rape_down?(target)
+        return false if female? && target.actor.battle_stat.get_stat("sex") == 0
+      end
+      fucker?(target, true)
+    end
+
+    def cf_companion_rape_team?(target)
+      target == $game_player || target.actor.master == $game_player
+    end
+
+    def cf_companion_rape_down?(target)
+      victim = target.actor
+      return true if victim.action_state == :sex
+      return true if victim.battle_stat.get_stat("sta") <= 0
+      cf_incapacitated_companion_target?(target)
+    end
+
+    # Calms a companion when its teammate target stops qualifying.
+    def cf_companion_rape_drop_target(target)
+      return unless @target == target
+      return if [:sex, :grabber].include?(action_state)
+      process_target_lost(false)
     end
   end
 
@@ -423,7 +474,11 @@ if $cheat_companion_rape >= 0
         return true if same_char?(target, character)
         return true if ignore_dead? && target.npc.action_state == :death
         return true if ignore_obj_chk(character, target)
-        return true if use_iff? && !character.actor.cf_companion_rape_ignore_iff? && character.actor.friendly?(target)
+        # Companions only see a friendly target that qualifies, so nearby teammates don't hide enemies.
+        if use_iff? && character.actor.friendly?(target)
+          bypass = character.actor.cf_companion_rape_ignore_iff? && character.actor.cf_companion_rape_fucker?(target)
+          return true unless bypass
+        end
         return true if friendly_only? && !character.actor.friendly?(target)
       end
     end

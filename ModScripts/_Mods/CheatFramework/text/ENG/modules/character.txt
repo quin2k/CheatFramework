@@ -37,14 +37,17 @@ Defense
 commands/primary/will
 Will
 
+commands/primary/wisdom
+Wisdom
+
 command_help/primary/bonus
 Bonus over gear and states. Saved per game.
 
 command_help/primary/will
-Bonus over gear and states. Limits arousal and addiction.
+Bonus over gear/states. Limits arousal and addiction.
 
 command_help/primary/bonus2
-Shown as (+Bonus) Value. The bonus stays when gear changes.
+Shown as (+Bonus) Value. Kept when gear changes.
 
 commands/levels
 Levels & Traits
@@ -230,7 +233,7 @@ commands/deeponecommunicate
 Deepone Can Communicate
 
 command_help/deeponecommunicate1
-Removes hardcoded checks that lock True Deepone out of interactions.
+Lets True Deepone use interactions it's locked out of.
 
 commands/abomskillfix
 Abomination Eat Fix
